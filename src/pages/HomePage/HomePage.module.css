@@ -1,0 +1,25 @@
+.homeWrapper {
+  max-width: 1440px;
+  /* height: 700px; */
+  padding: 436px 329px 60px 328px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  background-color: transparent;
+  margin-bottom: 16px;
+}
+
+.paragraph {
+  text-align: center;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 40px;
+}

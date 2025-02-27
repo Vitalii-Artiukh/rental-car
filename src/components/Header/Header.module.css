@@ -1,0 +1,35 @@
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--badges);
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 68px;
+  max-width: 1440px;
+  padding: 26px 120px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 104px;
+  height: 16px;
+  margin-right: auto;
+}
+
+.active {
+  color: red;
+}
+
+.linkWrapper {
+  display: flex;
+  gap: 32px;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--main);
+}
