@@ -1,3 +1,4 @@
+import Button from "../../components/ui/Button/Button";
 import css from "./HomePage.module.css";
 
 const HomePage = () => {
@@ -7,7 +8,9 @@ const HomePage = () => {
       <p className={css.paragraph}>
         Reliable and budget-friendly rentals for any journey
       </p>
-      <button type="button" style={{ width: 276, height: 44 }}></button>
+      <Button type="button" to={"/catalog"} variant="long">
+        View Catalog
+      </Button>
     </div>
   );
 };

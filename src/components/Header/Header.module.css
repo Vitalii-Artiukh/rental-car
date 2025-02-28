@@ -23,7 +23,7 @@
 }
 
 .active {
-  color: red;
+  color: var(--button-hover);
 }
 
 .linkWrapper {
@@ -31,5 +31,6 @@
   gap: 32px;
   font-weight: 500;
   font-size: 16px;
+  line-height: 1.25;
   color: var(--main);
 }

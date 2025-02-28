@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import css from "./Button.module.css";
+import { Link } from "react-router-dom";
 
 const Button = ({
   variant = "default",
@@ -7,6 +8,7 @@ const Button = ({
   className,
   type = "button",
   onClick,
+  to,
   children,
 }) => {
   const styles = clsx(
@@ -17,9 +19,16 @@ const Button = ({
     className && className
   );
   return (
-    <button type={type} className={styles} style={{ width }} onClick={onClick}>
-      {children}
-    </button>
+    <Link to={to} className={styles}>
+      <button
+        type={type}
+        style={{ width }}
+        onClick={onClick}
+        className={css.btn}
+      >
+        {children}
+      </button>
+    </Link>
   );
 };
 

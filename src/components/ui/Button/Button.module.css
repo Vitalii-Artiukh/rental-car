@@ -1,0 +1,65 @@
+.default,
+.long,
+.transparent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  outline: none;
+  transition: var(--primary-transition);
+}
+
+.default,
+.transparent {
+  width: 156px;
+}
+
+.long {
+  width: 276px;
+}
+
+.transparent {
+  background-color: transparent;
+  border: 1px solid var(--button);
+}
+
+.default .btn,
+.long .btn,
+.transparent .btn {
+  background-color: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  border: none;
+}
+
+.default .btn,
+.long .btn {
+  color: var(--white);
+}
+
+.transparent .btn {
+  color: var(--main);
+}
+
+.default,
+.long {
+  background-color: var(--button);
+  border: none;
+}
+
+.default:hover,
+.long:hover,
+.default:focus,
+.long:focus {
+  background-color: var(--button-hover);
+}
+
+.transparent:hover,
+.transparent:focus {
+  border-color: var(--button-hover);
+}
