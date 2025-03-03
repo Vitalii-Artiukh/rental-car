@@ -4,7 +4,7 @@ import css from "./Header.module.css";
 import Icon from "../ui/icon";
 
 const activeClasses = ({ isActive }) => {
-  return clsx(isActive && css.active);
+  return clsx(css.link, isActive && css.active);
 };
 
 const Header = () => {

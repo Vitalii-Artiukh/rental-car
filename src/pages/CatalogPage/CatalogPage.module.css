@@ -1,0 +1,5 @@
+.catalogWrapper {
+  margin-top: 100px;
+  /* mix-blend-mode: difference; */
+  filter: invert(1);
+}

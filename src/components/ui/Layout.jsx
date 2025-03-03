@@ -4,7 +4,7 @@ import Container from "./Container/Container";
 import { Outlet } from "react-router-dom";
 import Loader from "./Loader/Loader";
 
-const SharedLayout = () => {
+const GeneralWrapper = () => {
   return (
     <>
       <Header />
@@ -20,4 +20,4 @@ const SharedLayout = () => {
   );
 };
 
-export default SharedLayout;
+export default GeneralWrapper;

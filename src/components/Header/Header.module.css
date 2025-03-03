@@ -22,6 +22,11 @@
   margin-right: auto;
 }
 
+.link:hover,
+.link:focus {
+  color: var(--button-hover);
+}
+
 .active {
   color: var(--button-hover);
 }

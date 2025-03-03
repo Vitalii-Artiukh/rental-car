@@ -4,13 +4,14 @@ import CatalogPage from "../../pages/CatalogPage/CatalogPage";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 import HomePage from "../../pages/HomePage/HomePage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import SharedLayout from "../ui/SharedLayout";
+import GeneralWrapper from "../ui/Layout.jsx";
+import * as operations from "../../redux/cars/operations.js";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
+        <Route path="/" element={<GeneralWrapper />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/details/:carId" element={<DetailsPage />} />
