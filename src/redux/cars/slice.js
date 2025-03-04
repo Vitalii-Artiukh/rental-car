@@ -58,12 +58,12 @@ const carSlice = createSlice({
         state.selected = action.payload;
       })
       .addCase(operations.fetchCarById.rejected, handleReject)
-      .addCase(operations.fetchBrand.pending, handlePending)
-      .addCase(operations.fetchBrand.fulfilled, (state, action) => {
+      .addCase(operations.fetchCarsBrand.pending, handlePending)
+      .addCase(operations.fetchCarsBrand.fulfilled, (state, action) => {
         state.brands = action.payload;
         state.error = null;
       })
-      .addCase(operations.fetchBrand.rejected, handleReject),
+      .addCase(operations.fetchCarsBrand.rejected, handleReject),
 });
 
 export const reducerCars = carSlice.reducer;

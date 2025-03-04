@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAllCars, fetchByIdCar, fetchBrands } from "../../Api/axiosSet";
+import { fetchAllCars, fetchByIdCar, fetchBrand } from "../../Api/axiosSet";
 
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
@@ -28,11 +28,11 @@ export const fetchCarById = createAsyncThunk(
   }
 );
 
-export const fetchBrand = createAsyncThunk(
+export const fetchCarsBrand = createAsyncThunk(
   "filters/fetchFilters",
   async (_, thunkAPI) => {
     try {
-      const data = await fetchBrands();
+      const data = await fetchBrand();
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

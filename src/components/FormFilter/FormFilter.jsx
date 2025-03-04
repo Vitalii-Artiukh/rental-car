@@ -1,13 +1,55 @@
+import { useEffect, useRef, useState } from "react";
 import {
   InputCustomSelector,
   InputCustomText,
 } from "../ui/InputCustom/InputCustom";
+import { selectorBrands } from "../../redux/cars/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCarsBrand } from "../../redux/cars/operations";
 
 const FormFilter = () => {
+  const dispatch = useDispatch();
+  const optionBrand = useSelector(selectorBrands);
+  console.log(optionBrand);
+
+  const [openSelect, setOpenSelect] = useState(null);
+
+  const filterRef = useRef(null);
+  console.log(filterRef);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (filterRef.current && !filterRef.current.contains(e.target)) {
+        setOpenSelect(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [openSelect]);
+
+  useEffect(() => {
+    dispatch(fetchCarsBrand());
+  }, []);
+
+  const optionPrice = [30, 40, 50, 60, 70, 80];
   return (
     <form>
-      <InputCustomSelector />
-      <InputCustomSelector />
+      <InputCustomSelector
+        placeholder={"Choose a brand"}
+        htmlFor={"brand"}
+        name={"Car brand"}
+        option={optionBrand}
+        isOpenSelect={optionBrand === "brand"}
+      />
+      <InputCustomSelector
+        placeholder={"Choose a price"}
+        htmlFor={"price"}
+        name={"Price/ 1 hour"}
+        option={optionPrice}
+        formatValue={(val) => (val ? `To $${val}` : "Choose a price")}
+      />
       <InputCustomText />
       <InputCustomText />
     </form>
@@ -17,10 +59,10 @@ const FormFilter = () => {
 export default FormFilter;
 
 // import { useDispatch, useSelector } from "react-redux";
-// import { fetchBrands, fetchCars } from "../../redux/car/operations";
+// import { fetchCarsBrand, fetchCars } from "../../redux/car/operations";
 // import { setFilter } from "../../redux/filter/slice";
 // import { useEffect, useRef, useState } from "react";
-// import { selectBrands } from "../../redux/car/selectors";
+// import { selectorBrands } from "../../redux/car/selectors";
 
 // import CustomSelector from "../ui/CustomSelector/CustomSelector";
 // import Button from "../ui/Button/Button";
@@ -30,7 +72,7 @@ export default FormFilter;
 //   const dispatch = useDispatch();
 //   const filterRef = useRef(null);
 
-//   const allBrands = useSelector(selectBrands);
+//   const allBrands = useSelector(selectorBrands);
 
 //   const [openSelector, setOpenSelector] = useState(null);
 //   const [localFilters, setLocalFilters] = useState({
@@ -41,7 +83,7 @@ export default FormFilter;
 //   });
 
 //   useEffect(() => {
-//     dispatch(fetchBrands());
+//     dispatch(fetchCarsBrand());
 //   }, [dispatch]);
 
 //   //Закриття селекторів

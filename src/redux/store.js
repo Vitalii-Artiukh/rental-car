@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { reducerCars } from "./car/slice";
-import { filtersReducer } from "./filter/slice";
+import { reducerCars } from "./cars/slice.js";
+import { filtersReducer } from "./filters/slice.js";
 import {
   persistStore,
   persistReducer,
@@ -20,6 +20,7 @@ const persistConfig = {
 };
 
 const carPersistor = persistReducer(persistConfig, reducerCars);
+
 export const store = configureStore({
   reducer: {
     cars: carPersistor,

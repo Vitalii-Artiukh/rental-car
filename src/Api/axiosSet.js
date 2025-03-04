@@ -23,7 +23,7 @@ export const fetchByIdCar = async (id) => {
   return data;
 };
 
-export const fetchBrands = async () => {
+export const fetchBrand = async () => {
   const response = await axiosInstance.get("/brands");
   const data = response.data;
   return data;
