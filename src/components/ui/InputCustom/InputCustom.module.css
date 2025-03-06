@@ -1,8 +1,17 @@
 .inputWrapper {
+  position: relative;
   /* display: flex; */
   /* flex-direction: column; */
 
   color: var(--gray);
+}
+
+.dropdown {
+  position: fixed;
+  z-index: 3;
+  background-color: var(--white);
+  width: 204px;
+  border: 1px black solid;
 }
 
 .input {

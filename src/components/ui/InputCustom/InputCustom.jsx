@@ -1,21 +1,63 @@
 import clsx from "clsx";
 import css from "./InputCustom.module.css";
 import Icon from "../icon";
+import { useEffect, useRef, useState } from "react";
 
-export const InputCustomSelector = ({
-  isOpenSelect,
-  value,
-  formatValue,
-  htmlFor,
-  placeholder,
-  name,
-  type,
-  option,
-}) => {
+export const InputCustomSelector = (
+  props
+  // {
+  // isOpenSelect,
+  // onChange,
+  // value,
+  // formatValue,
+  // placeholder,
+  // name,
+  // option,
+  // }
+) => {
+  // console.log(props.list);
+  const [isOpen, setIsOpen] = useState(null);
+  // const [localFilters, setLocalFilters] = useState({
+  //   brand: "",
+  //   rentalPrice: "",
+  //   minMileage: "",
+  //   maxMileage: "",
+  // });
+  const filterRef = useRef(null);
+  // console.log(props.name);
+
+  const handleOpen = () => {
+    // const nameValue = (prev) => (prev === name ? null : name);
+    // if (name === nameValue) {
+    setIsOpen(true);
+    // }
+  };
+
+  const handleSelect = (option) => {
+    onChange(props.name);
+    setIsOpen(null);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (filterRef.current && !filterRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <label className={clsx(css.inputWrapper)}>
-      <div className={clsx(css.input)}>
-        {formatValue ? formatValue(value) : value || placeholder}
+      <div className={clsx(css.input)} onClick={handleOpen} name={props.name}>
+        {props.formatValue
+          ? props.formatValue(props.name)
+          : props.name || props.placeholder}
         <Icon
           width={16}
           height={16}
@@ -23,11 +65,11 @@ export const InputCustomSelector = ({
           className={clsx(css.iconDown)}
         />
       </div>
-      {isOpenSelect && (
+      {isOpen && (
         <ul className={clsx(css.dropdown)}>
-          {option?.map((opt) => (
-            <li key={opt} value={opt}>
-              {opt}
+          {props.list?.map((item) => (
+            <li key={item} value={item} onClick={handleSelect(item)}>
+              {item}
             </li>
           ))}
         </ul>

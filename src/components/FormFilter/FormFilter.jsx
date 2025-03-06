@@ -6,16 +6,24 @@ import {
 import { selectorBrands } from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCarsBrand } from "../../redux/cars/operations";
+import { CustomSelect } from "../CustomSelect/CustomSelect";
+import { setFilter } from "../../redux/filters/slice";
 
 const FormFilter = () => {
   const dispatch = useDispatch();
   const optionBrand = useSelector(selectorBrands);
-  console.log(optionBrand);
+  // console.log(optionBrand);
 
   const [openSelect, setOpenSelect] = useState(null);
 
+  const [localFilters, setLocalFilters] = useState({
+    brand: "",
+    rentalPrice: "",
+    minMileage: "",
+    maxMileage: "",
+  });
+
   const filterRef = useRef(null);
-  console.log(filterRef);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -29,27 +37,55 @@ const FormFilter = () => {
     };
   }, [openSelect]);
 
+  const handleChange = (name, value) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      [name]: name.includes("Mileage")
+        ? Number(value.replace(/\D/g, "")) || ""
+        : value || "",
+    }));
+  };
+
   useEffect(() => {
     dispatch(fetchCarsBrand());
   }, []);
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setOpenSelect(null);
+  //   dispatch(setFilter(localFilters));
+  //   dispatch(fetchCars({ page: 1, filters: localFilters }));
+  // };
+
   const optionPrice = [30, 40, 50, 60, 70, 80];
   return (
     <form>
-      <InputCustomSelector
+      <CustomSelect
         placeholder={"Choose a brand"}
-        htmlFor={"brand"}
         name={"Car brand"}
-        option={optionBrand}
+        options={optionBrand}
+      />
+      <CustomSelect
+        placeholder={"Choose a price"}
+        name={"Price/ 1 hour"}
+        options={optionPrice}
+      />
+      {/* <InputCustomSelector
+        placeholder={"Choose a brand"}
+        // htmlFor={"brand"}
+        name={"Car brand"}
+        list={optionBrand}
         isOpenSelect={optionBrand === "brand"}
+        // onChange={(val) => handleChange("brand", val)}
       />
       <InputCustomSelector
         placeholder={"Choose a price"}
         htmlFor={"price"}
         name={"Price/ 1 hour"}
-        option={optionPrice}
+        list={optionPrice}
         formatValue={(val) => (val ? `To $${val}` : "Choose a price")}
-      />
+        // onChange={(val) => handleChange("brand", val)}
+      /> */}
       <InputCustomText />
       <InputCustomText />
     </form>
