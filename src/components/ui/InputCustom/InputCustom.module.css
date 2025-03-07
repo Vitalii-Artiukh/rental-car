@@ -10,7 +10,7 @@
   position: fixed;
   z-index: 3;
   background-color: var(--white);
-  width: 204px;
+
   border: 1px black solid;
 }
 

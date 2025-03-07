@@ -8,13 +8,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../CustomSelect/CustomSelect";
 import { setFilter } from "../../redux/filters/slice";
+import Button from "../ui/Button/Button";
+import css from "./FormFilter.module.css";
 
 const FormFilter = () => {
   const dispatch = useDispatch();
   const optionBrand = useSelector(selectorBrands);
-  // console.log(optionBrand);
-
-  const [openSelect, setOpenSelect] = useState(null);
 
   const [localFilters, setLocalFilters] = useState({
     brand: "",
@@ -23,19 +22,7 @@ const FormFilter = () => {
     maxMileage: "",
   });
 
-  const filterRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (filterRef.current && !filterRef.current.contains(e.target)) {
-        setOpenSelect(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [openSelect]);
+  console.log(localFilters);
 
   const handleChange = (name, value) => {
     setLocalFilters((prev) => ({
@@ -48,7 +35,7 @@ const FormFilter = () => {
 
   useEffect(() => {
     dispatch(fetchCarsBrand());
-  }, []);
+  }, [dispatch]);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -59,35 +46,35 @@ const FormFilter = () => {
 
   const optionPrice = [30, 40, 50, 60, 70, 80];
   return (
-    <form>
+    <form className={css.formWrapper}>
       <CustomSelect
+        className={css.selectBrand}
         placeholder={"Choose a brand"}
         name={"Car brand"}
         options={optionBrand}
+        onChange={(val) => handleChange("brand", val)}
+        value={localFilters.brand}
       />
+
       <CustomSelect
+        className={css.selectPrice}
         placeholder={"Choose a price"}
         name={"Price/ 1 hour"}
         options={optionPrice}
-      />
-      {/* <InputCustomSelector
-        placeholder={"Choose a brand"}
-        // htmlFor={"brand"}
-        name={"Car brand"}
-        list={optionBrand}
-        isOpenSelect={optionBrand === "brand"}
-        // onChange={(val) => handleChange("brand", val)}
-      />
-      <InputCustomSelector
-        placeholder={"Choose a price"}
-        htmlFor={"price"}
-        name={"Price/ 1 hour"}
-        list={optionPrice}
+        onChange={(val) => handleChange("rentalPrice", val)}
         formatValue={(val) => (val ? `To $${val}` : "Choose a price")}
-        // onChange={(val) => handleChange("brand", val)}
-      /> */}
-      <InputCustomText />
-      <InputCustomText />
+        value={localFilters.rentalPrice}
+      />
+      <InputCustomText className={css.inputFrom} name="Сar mileage / km" />
+      <InputCustomText className={css.inputTo} />
+
+      <Button
+        className={css.btnSubmit}
+        type="submit"
+        // onClick={handleSubmit}
+      >
+        Search
+      </Button>
     </form>
   );
 };

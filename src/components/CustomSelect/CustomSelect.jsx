@@ -1,13 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./CustomSelect.module.css";
 import clsx from "clsx";
+import Icon from "../ui/icon";
 
-export const CustomSelect = ({ options, placeholder, name }) => {
+export const CustomSelect = ({
+  options, // array values select
+  placeholder,
+  name, // label title text
+  onChange, // value select
+  formatValue, // value select + format
+  value, // value
+  className,
+}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
 
+  const filterRef = useRef(null);
+
   const handleSelect = (option) => {
+    onChange(option.value);
     setSelectedOption(option);
     setShowOptions(null);
     setFocusedOptionIndex(-1);
@@ -42,32 +54,68 @@ export const CustomSelect = ({ options, placeholder, name }) => {
     selectedKeyDown(optionsValueLabel[focusedOptionIndex]);
   }, [focusedOptionIndex]);
 
+  // closed dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (filterRef.current && !filterRef.current.contains(e.target)) {
+        setShowOptions(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setShowOptions]);
+
+  //   const handleChange = (name, value) => {
+  //     setLocalFilters((prev) => ({
+  //       ...prev,
+  //       [name]: name.includes("Mileage")
+  //         ? Number(value.replace(/\D/g, "")) || ""
+  //         : value || "",
+  //     }));
+  //   };
+
   console.log(showOptions);
   console.log(selectedOption);
-  console.log(focusedOptionIndex);
 
   return (
-    <div className={css.customSelect} tabIndex="0" onKeyDown={handleKeyDown}>
-      <div
-        className={css.selectBox}
-        onClick={() => setShowOptions(!showOptions)}
-      >
-        {selectedOption ? selectedOption.label : placeholder}
+    <label
+      ref={filterRef}
+      className={clsx(css.customSelect, className)}
+      tabIndex="0"
+      onKeyDown={handleKeyDown}
+    >
+      <p className={css.labelName}>{name}</p>
+      <div className={css.input} onClick={() => setShowOptions(!showOptions)}>
+        {formatValue ? formatValue(value) : value || placeholder}
+
+        {/* {selectedOption ? selectedOption.label : placeholder} */}
+        <Icon
+          width={16}
+          height={16}
+          name={"icon-down"}
+          className={clsx(css.iconDown, showOptions ? css.iconUpper : "")}
+        />
+
+        <div
+          id={name}
+          className={clsx(css.dropdown, showOptions ? css.show : "")}
+        >
+          {optionsValueLabel?.map((option, index) => (
+            <div
+              key={option.value}
+              className={clsx(
+                css.dropdownItem,
+                index === focusedOptionIndex ? css.focused : ""
+              )}
+              onClick={() => handleSelect(option)}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={clsx(css.options, showOptions ? css.show : "")}>
-        {optionsValueLabel?.map((option, index) => (
-          <div
-            key={option.value}
-            className={clsx(
-              css.option,
-              index === focusedOptionIndex ? css.focused : ""
-            )}
-            onClick={() => handleSelect(option)}
-          >
-            {option.label}
-          </div>
-        ))}
-      </div>
-    </div>
+    </label>
   );
 };
