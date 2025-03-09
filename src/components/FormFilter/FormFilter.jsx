@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  InputCustomSelector,
-  InputCustomText,
-} from "../ui/InputCustom/InputCustom";
+import { InputCustomText } from "../ui/InputCustom/InputCustom";
 import { selectorBrands } from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCarsBrand } from "../../redux/cars/operations";
+import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../CustomSelect/CustomSelect";
 import { setFilter } from "../../redux/filters/slice";
 import Button from "../ui/Button/Button";
@@ -15,6 +12,7 @@ const FormFilter = () => {
   const dispatch = useDispatch();
   const optionBrand = useSelector(selectorBrands);
 
+  const [filters, setFilters] = useState({});
   const [localFilters, setLocalFilters] = useState({
     brand: "",
     rentalPrice: "",
@@ -22,9 +20,26 @@ const FormFilter = () => {
     maxMileage: "",
   });
 
-  console.log(localFilters);
+  const filtersClean = () => {
+    if (localFilters.brand !== "") {
+      setFilters((prev) => ({ ...prev, brand: localFilters.brand }));
+    }
+    if (localFilters.rentalPrice !== "") {
+      setFilters((prev) => ({
+        ...prev,
+        rentalPrice: localFilters.rentalPrice,
+      }));
+    }
+    if (localFilters.minMileage !== "") {
+      setFilters((prev) => ({ ...prev, minMileage: localFilters.minMileage }));
+    }
+    if (localFilters.maxMileage !== "") {
+      setFilters((prev) => ({ ...prev, maxMileage: localFilters.maxMileage }));
+    }
+  };
 
   const handleChange = (name, value) => {
+    filtersClean();
     setLocalFilters((prev) => ({
       ...prev,
       [name]: name.includes("Mileage")
@@ -33,49 +48,106 @@ const FormFilter = () => {
     }));
   };
 
+  console.log(filters);
+
   useEffect(() => {
     dispatch(fetchCarsBrand());
   }, [dispatch]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setOpenSelect(null);
-  //   dispatch(setFilter(localFilters));
-  //   dispatch(fetchCars({ page: 1, filters: localFilters }));
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    filtersClean();
+    dispatch(setFilter(localFilters));
+    dispatch(fetchCars({ page: 1, ...filters }));
+  };
 
-  const optionPrice = [30, 40, 50, 60, 70, 80];
+  const generate = () => {
+    let number = [];
+    for (let i = 20; i <= 130; i += 10) {
+      number.push(i);
+    }
+    return number;
+  };
+  const optionPrice = generate();
+
+  const resetFilters = () => {
+    setFilters(() => ({}));
+    // setLocalFilters({
+    //   brand: "",
+    //   rentalPrice: "",
+    //   minMileage: "",
+    //   maxMileage: "",
+    // });
+  };
+
+  useEffect(() => {
+    setLocalFilters(() => ({
+      brand: "",
+      rentalPrice: "",
+      minMileage: "",
+      maxMileage: "",
+    }));
+  }, [setFilters]);
+
   return (
-    <form className={css.formWrapper}>
-      <CustomSelect
-        className={css.selectBrand}
-        placeholder={"Choose a brand"}
-        name={"Car brand"}
-        options={optionBrand}
-        onChange={(val) => handleChange("brand", val)}
-        value={localFilters.brand}
-      />
-
-      <CustomSelect
-        className={css.selectPrice}
-        placeholder={"Choose a price"}
-        name={"Price/ 1 hour"}
-        options={optionPrice}
-        onChange={(val) => handleChange("rentalPrice", val)}
-        formatValue={(val) => (val ? `To $${val}` : "Choose a price")}
-        value={localFilters.rentalPrice}
-      />
-      <InputCustomText className={css.inputFrom} name="Сar mileage / km" />
-      <InputCustomText className={css.inputTo} />
-
+    <div>
       <Button
-        className={css.btnSubmit}
-        type="submit"
-        // onClick={handleSubmit}
+        type="button"
+        variant="transparent"
+        className={css.resetBtn}
+        onClick={() => resetFilters}
       >
-        Search
+        Reset all filters
       </Button>
-    </form>
+      <form className={css.formWrapper}>
+        <CustomSelect
+          name={"brand"}
+          className={css.selectBrand}
+          placeholder={"Choose a brand"}
+          labelText={"Car brand"}
+          options={optionBrand}
+          onChange={(val) => handleChange("brand", val)}
+          value={localFilters.brand}
+        />
+
+        <CustomSelect
+          name={"rentalPrice"}
+          className={css.selectPrice}
+          placeholder={"Choose a price"}
+          labelText={"Price/ 1 hour"}
+          options={optionPrice}
+          onChange={(val) => handleChange("rentalPrice", val)}
+          value={localFilters.rentalPrice}
+        />
+        <InputCustomText
+          name={"minMileage"}
+          className={css.inputFrom}
+          labelText="Car mileage / km"
+          placeholder="From"
+          localFilters={
+            localFilters?.minMileage
+              ? `From ${Number(localFilters.minMileage).toLocaleString("gb")}`
+              : ""
+          }
+          handleChange={(val) => handleChange("minMileage", val)}
+        />
+        <InputCustomText
+          name={"maxMileage"}
+          className={css.inputTo}
+          placeholder="To"
+          localFilters={
+            localFilters?.maxMileage
+              ? `To ${Number(localFilters.maxMileage).toLocaleString("gb")}`
+              : ""
+          }
+          handleChange={(val) => handleChange("maxMileage", val)}
+        />
+
+        <Button className={css.btnSubmit} type="submit" onClick={handleSubmit}>
+          Search
+        </Button>
+      </form>
+    </div>
   );
 };
 

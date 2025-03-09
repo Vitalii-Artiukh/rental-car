@@ -1,48 +1,13 @@
-.inputWrapper {
-  position: relative;
-  /* display: flex; */
-  /* flex-direction: column; */
+.label {
+  align-content: end;
+  height: 68px;
+}
 
+.labelText {
   color: var(--gray);
-}
-
-.dropdown {
-  position: fixed;
-  z-index: 3;
-  background-color: var(--white);
-
-  border: 1px black solid;
-}
-
-.input {
-  display: flex;
-  align-items: center;
-  padding: 12px 0 12px 16px;
-  background-color: var(--inputs);
-  margin-top: 8px;
-  width: 204px;
-  border: none;
-  outline: none;
-  color: var(--main);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.25;
-}
-
-.input:hover {
-  .iconDown {
-    transform: scaleY(-1);
-  }
+  margin-bottom: 8px;
 }
 
 ::placeholder {
   color: var(--main);
-}
-
-.iconDown {
-  /* transform: scale(1, -1); */
-  /* transform: scaleY(-1); */
-  transition: var(--primary-transition);
-  margin-right: 16px;
-  margin-left: auto;
 }

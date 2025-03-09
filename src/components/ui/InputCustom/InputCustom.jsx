@@ -3,14 +3,29 @@ import css from "./InputCustom.module.css";
 import Icon from "../icon";
 import { useEffect, useRef, useState } from "react";
 
-export const InputCustomText = ({ className, name }) => {
+export const InputCustomText = ({
+  className,
+  name,
+  placeholder,
+  labelText,
+  localFilters,
+  handleChange,
+}) => {
   return (
-    <div className={className}>
-      <label htmlFor={name}>
-        <input type="text" id={name} />
-      </label>
-      <p>{name}</p>
-      InputCustomText
-    </div>
+    <label htmlFor={name} className={css.label}>
+      <p className={css.labelText}>{labelText}</p>
+      <input
+        type="text"
+        id={name}
+        className={className}
+        placeholder={placeholder}
+        value={
+          localFilters
+          // ? `From ${Number(localFilters.maxMileage).toLocaleString("en-US")}`
+          // : ""
+        }
+        onChange={(e) => handleChange(e.target.value)}
+      />
+    </label>
   );
 };

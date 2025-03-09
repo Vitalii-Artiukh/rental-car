@@ -4,11 +4,12 @@ import clsx from "clsx";
 import Icon from "../ui/icon";
 
 export const CustomSelect = ({
+  name,
   options, // array values select
   placeholder,
-  name, // label title text
+  labelText, // label title text
   onChange, // value select
-  formatValue, // value select + format
+  //   formatValue, // value select + format
   value, // value
   className,
 }) => {
@@ -44,10 +45,9 @@ export const CustomSelect = ({
         (prevIndex) =>
           (prevIndex - 1 + optionsValueLabel.length) % optionsValueLabel.length
       );
+    } else if (e.key === "Enter" && focusedOptionIndex >= 0) {
+      handleSelect(optionsValueLabel[focusedOptionIndex]);
     }
-    // else if (e.key === "Enter" && focusedOptionIndex >= 0) {
-    //   handleSelect(optionsValueLabel[focusedOptionIndex]);
-    // }
   };
 
   useEffect(() => {
@@ -67,17 +67,7 @@ export const CustomSelect = ({
     };
   }, [setShowOptions]);
 
-  //   const handleChange = (name, value) => {
-  //     setLocalFilters((prev) => ({
-  //       ...prev,
-  //       [name]: name.includes("Mileage")
-  //         ? Number(value.replace(/\D/g, "")) || ""
-  //         : value || "",
-  //     }));
-  //   };
-
-  console.log(showOptions);
-  console.log(selectedOption);
+  const val = selectedOption?.label;
 
   return (
     <label
@@ -86,20 +76,28 @@ export const CustomSelect = ({
       tabIndex="0"
       onKeyDown={handleKeyDown}
     >
-      <p className={css.labelName}>{name}</p>
+      <p className={css.labelName}>{labelText}</p>
       <div className={css.input} onClick={() => setShowOptions(!showOptions)}>
-        {formatValue ? formatValue(value) : value || placeholder}
-
-        {/* {selectedOption ? selectedOption.label : placeholder} */}
+        {selectedOption ? (
+          name === "rentalPrice" ? (
+            <p>
+              <span>To $ </span>
+              <span className={css.span}>{val}</span>
+            </p>
+          ) : (
+            val
+          )
+        ) : (
+          value || placeholder
+        )}
         <Icon
           width={16}
           height={16}
           name={"icon-down"}
           className={clsx(css.iconDown, showOptions ? css.iconUpper : "")}
         />
-
         <div
-          id={name}
+          id={labelText}
           className={clsx(css.dropdown, showOptions ? css.show : "")}
         >
           {optionsValueLabel?.map((option, index) => (

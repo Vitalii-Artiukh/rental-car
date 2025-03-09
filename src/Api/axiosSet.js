@@ -7,7 +7,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export const fetchAllCars = async (filters) => {
+export const fetchAllCars = async ({ filters }) => {
+  console.log(filters);
   const response = await axiosInstance.get("/cars", {
     params: { ...filters },
   });

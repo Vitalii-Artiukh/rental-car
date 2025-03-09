@@ -4,10 +4,9 @@ import { fetchAllCars, fetchByIdCar, fetchBrand } from "../../Api/axiosSet";
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
 
-  async ({ filters = {} }, thunkApi) => {
+  async ({ ...filters }, thunkApi) => {
     try {
-      const data = await fetchAllCars(filters);
-      console.log(data);
+      const data = await fetchAllCars({ filters });
       return { cars: data.cars, totalPages: data.totalPages };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -30,12 +29,13 @@ export const fetchCarById = createAsyncThunk(
 
 export const fetchCarsBrand = createAsyncThunk(
   "filters/fetchFilters",
-  async (_, thunkAPI) => {
+
+  async (_, thunkApi) => {
     try {
       const data = await fetchBrand();
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
