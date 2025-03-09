@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { InputCustomText } from "../ui/InputCustom/InputCustom";
 import { selectorBrands } from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,34 +12,9 @@ const FormFilter = () => {
   const dispatch = useDispatch();
   const optionBrand = useSelector(selectorBrands);
 
-  const [filters, setFilters] = useState({});
-  const [localFilters, setLocalFilters] = useState({
-    brand: "",
-    rentalPrice: "",
-    minMileage: "",
-    maxMileage: "",
-  });
-
-  const filtersClean = () => {
-    if (localFilters.brand !== "") {
-      setFilters((prev) => ({ ...prev, brand: localFilters.brand }));
-    }
-    if (localFilters.rentalPrice !== "") {
-      setFilters((prev) => ({
-        ...prev,
-        rentalPrice: localFilters.rentalPrice,
-      }));
-    }
-    if (localFilters.minMileage !== "") {
-      setFilters((prev) => ({ ...prev, minMileage: localFilters.minMileage }));
-    }
-    if (localFilters.maxMileage !== "") {
-      setFilters((prev) => ({ ...prev, maxMileage: localFilters.maxMileage }));
-    }
-  };
+  const [localFilters, setLocalFilters] = useState({});
 
   const handleChange = (name, value) => {
-    filtersClean();
     setLocalFilters((prev) => ({
       ...prev,
       [name]: name.includes("Mileage")
@@ -48,18 +23,11 @@ const FormFilter = () => {
     }));
   };
 
-  console.log(filters);
+  console.log(localFilters);
 
   useEffect(() => {
     dispatch(fetchCarsBrand());
   }, [dispatch]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    filtersClean();
-    dispatch(setFilter(localFilters));
-    dispatch(fetchCars({ page: 1, ...filters }));
-  };
 
   const generate = () => {
     let number = [];
@@ -71,23 +39,13 @@ const FormFilter = () => {
   const optionPrice = generate();
 
   const resetFilters = () => {
-    setFilters(() => ({}));
-    // setLocalFilters({
-    //   brand: "",
-    //   rentalPrice: "",
-    //   minMileage: "",
-    //   maxMileage: "",
-    // });
+    setLocalFilters({});
   };
 
   useEffect(() => {
-    setLocalFilters(() => ({
-      brand: "",
-      rentalPrice: "",
-      minMileage: "",
-      maxMileage: "",
-    }));
-  }, [setFilters]);
+    dispatch(setFilter(localFilters));
+    dispatch(fetchCars({ page: 1, ...localFilters }));
+  }, [localFilters]);
 
   return (
     <div>
@@ -95,7 +53,7 @@ const FormFilter = () => {
         type="button"
         variant="transparent"
         className={css.resetBtn}
-        onClick={() => resetFilters}
+        onClick={resetFilters}
       >
         Reset all filters
       </Button>
@@ -106,7 +64,7 @@ const FormFilter = () => {
           placeholder={"Choose a brand"}
           labelText={"Car brand"}
           options={optionBrand}
-          onChange={(val) => handleChange("brand", val)}
+          onChange={(name, val) => handleChange(name, val)}
           value={localFilters.brand}
         />
 
@@ -116,7 +74,7 @@ const FormFilter = () => {
           placeholder={"Choose a price"}
           labelText={"Price/ 1 hour"}
           options={optionPrice}
-          onChange={(val) => handleChange("rentalPrice", val)}
+          onChange={(name, val) => handleChange(name, val)}
           value={localFilters.rentalPrice}
         />
         <InputCustomText
@@ -129,7 +87,7 @@ const FormFilter = () => {
               ? `From ${Number(localFilters.minMileage).toLocaleString("gb")}`
               : ""
           }
-          handleChange={(val) => handleChange("minMileage", val)}
+          handleChange={(name, val) => handleChange(name, val)}
         />
         <InputCustomText
           name={"maxMileage"}
@@ -140,12 +98,8 @@ const FormFilter = () => {
               ? `To ${Number(localFilters.maxMileage).toLocaleString("gb")}`
               : ""
           }
-          handleChange={(val) => handleChange("maxMileage", val)}
+          handleChange={(name, val) => handleChange(name, val)}
         />
-
-        <Button className={css.btnSubmit} type="submit" onClick={handleSubmit}>
-          Search
-        </Button>
       </form>
     </div>
   );

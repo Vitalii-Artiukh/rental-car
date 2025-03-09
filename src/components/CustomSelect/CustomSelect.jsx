@@ -20,7 +20,7 @@ export const CustomSelect = ({
   const filterRef = useRef(null);
 
   const handleSelect = (option) => {
-    onChange(option.value);
+    onChange(name, option.value);
     setSelectedOption(option);
     setShowOptions(null);
     setFocusedOptionIndex(-1);
@@ -67,7 +67,8 @@ export const CustomSelect = ({
     };
   }, [setShowOptions]);
 
-  const val = selectedOption?.label;
+  // const val = selectedOption?.label;
+  const val = value;
 
   return (
     <label
@@ -79,13 +80,13 @@ export const CustomSelect = ({
       <p className={css.labelName}>{labelText}</p>
       <div className={css.input} onClick={() => setShowOptions(!showOptions)}>
         {selectedOption ? (
-          name === "rentalPrice" ? (
+          name === "rentalPrice" && value ? (
             <p>
               <span>To $ </span>
-              <span className={css.span}>{val}</span>
+              <span className={css.fontWeight}>{value}</span>
             </p>
           ) : (
-            val
+            value || placeholder
           )
         ) : (
           value || placeholder

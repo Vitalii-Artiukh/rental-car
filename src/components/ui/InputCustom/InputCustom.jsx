@@ -24,7 +24,7 @@ export const InputCustomText = ({
           // ? `From ${Number(localFilters.maxMileage).toLocaleString("en-US")}`
           // : ""
         }
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChange(name, e.target.value)}
       />
     </label>
   );
