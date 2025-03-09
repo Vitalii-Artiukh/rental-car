@@ -1,7 +1,4 @@
-import clsx from "clsx";
 import css from "./InputCustom.module.css";
-import Icon from "../icon";
-import { useEffect, useRef, useState } from "react";
 
 export const InputCustomText = ({
   className,
@@ -19,11 +16,7 @@ export const InputCustomText = ({
         id={name}
         className={className}
         placeholder={placeholder}
-        value={
-          localFilters
-          // ? `From ${Number(localFilters.maxMileage).toLocaleString("en-US")}`
-          // : ""
-        }
+        value={localFilters}
         onChange={(e) => handleChange(name, e.target.value)}
       />
     </label>

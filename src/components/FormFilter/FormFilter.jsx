@@ -45,7 +45,7 @@ const FormFilter = () => {
   useEffect(() => {
     dispatch(setFilter(localFilters));
     dispatch(fetchCars({ page: 1, ...localFilters }));
-  }, [localFilters]);
+  }, [localFilters, dispatch]);
 
   return (
     <div>

@@ -52,7 +52,7 @@ export const CustomSelect = ({
 
   useEffect(() => {
     selectedKeyDown(optionsValueLabel[focusedOptionIndex]);
-  }, [focusedOptionIndex]);
+  }, [focusedOptionIndex, optionsValueLabel]);
 
   // closed dropdown
   useEffect(() => {
@@ -66,9 +66,6 @@ export const CustomSelect = ({
       document.removeEventListener("click", handleClickOutside);
     };
   }, [setShowOptions]);
-
-  // const val = selectedOption?.label;
-  const val = value;
 
   return (
     <label
