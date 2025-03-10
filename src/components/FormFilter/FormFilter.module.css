@@ -4,6 +4,7 @@
   background-color: var(--white);
   padding-top: 16px;
   width: 1440px;
+  z-index: 999;
 }
 
 .resetBtn {

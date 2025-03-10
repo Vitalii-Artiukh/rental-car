@@ -14,7 +14,7 @@ const handleReject = (state, action) => {
 const INITIAL_STATE = {
   items: [],
   brands: [],
-  favoriteCars: [],
+  favorite: [],
   selectedCar: null,
   page: 1,
   totalPages: null,

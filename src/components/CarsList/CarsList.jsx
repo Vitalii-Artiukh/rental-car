@@ -11,19 +11,72 @@ import { useLocation } from "react-router-dom";
 import { selectorFilter } from "../../redux/filters/selectors";
 
 import React from "react";
+import Loader from "../ui/Loader/Loader";
 
 const CarsList = () => {
+  const dispatch = useDispatch();
   const cars = useSelector(carsSelect.selectorCars);
+  const favorite = useSelector(carsSelect.selectorFavorite);
+  const page = useSelector(carsSelect.selectorPage);
+  const totalPages = useSelector(carsSelect.selectorTotalPages);
+  const isLoading = useSelector(carsSelect.selectorIsLoading);
+  const error = useSelector(carsSelect.selectorError);
 
-  console.log(cars);
+  // const uniqueCars = Array.from(
+  //   new Map(cars.map((car) => [car.id, car])).values()
+  // );
+  // console.log(uniqueCars);
+
+  const handleToggleFavorite = (id) => {
+    // console.log(id);
+    dispatch(favoriteToggle(id));
+  };
+
+  const handleMore = () => {
+    dispatch(setPage(page + 1));
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      const cardHeight = 230;
+      const rows = 2;
+      const gap = 90;
+      setTimeout(() => {
+        window.scrollBy({
+          top: cardHeight * rows + gap,
+          behavior: "smooth",
+        });
+      }, 250);
+    }
+  }, [cars, page]);
 
   return (
     <ul className={css.carListWrapper}>
       {cars.map((car) => (
         <li key={car.id}>
-          <CarItems car={car} />
+          <CarItems
+            car={car}
+            onToggle={() => handleToggleFavorite(car.id)}
+            isFavorite={Array.isArray(favorite) && favorite.includes(car.id)}
+          />
         </li>
       ))}
+      {!error && isLoading ? (
+        <div className={css.loaderList}>
+          <Loader />
+        </div>
+      ) : (
+        page < totalPages && (
+          <Button
+            type="button"
+            variant="transparent"
+            className={css.moreBtn}
+            onClick={handleMore}
+          >
+            Load more
+          </Button>
+        )
+      )}
     </ul>
   );
 };

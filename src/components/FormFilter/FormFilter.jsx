@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { InputCustomText } from "../ui/InputCustom/InputCustom";
-import { selectorBrands } from "../../redux/cars/selectors";
+import * as carsSelect from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../ui/CustomSelect/CustomSelect";
@@ -8,11 +8,14 @@ import { setFilter } from "../../redux/filters/slice";
 import Button from "../ui/Button/Button";
 import css from "./FormFilter.module.css";
 import { selectorFilter } from "../../redux/filters/selectors";
+import { setPage } from "../../redux/cars/slice";
 
 const FormFilter = () => {
   const dispatch = useDispatch();
-  const optionBrand = useSelector(selectorBrands);
+  const cars = useSelector(carsSelect.selectorCars);
+  const optionBrand = useSelector(carsSelect.selectorBrands);
   const globalFilter = useSelector(selectorFilter);
+  const page = useSelector(carsSelect.selectorPage);
 
   const [cleanFilters, setCleanFilters] = useState({});
 
@@ -54,6 +57,7 @@ const FormFilter = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     filtersClean();
+    dispatch(setPage(1));
   };
 
   // fetch brands
@@ -73,8 +77,8 @@ const FormFilter = () => {
 
   // fetch cars
   useEffect(() => {
-    dispatch(fetchCars({ page: 1, ...cleanFilters }));
-  }, [cleanFilters, dispatch]);
+    dispatch(fetchCars({ page, ...cleanFilters }));
+  }, [cleanFilters, dispatch, page]);
 
   // reset all filters
   const resetFilters = () => {
@@ -87,6 +91,13 @@ const FormFilter = () => {
         maxMileage: "",
       })
     );
+    dispatch(setPage(1));
+    setTimeout(() => {
+      window.scrollBy({
+        top: -window.innerHeight,
+        behavior: "smooth",
+      });
+    }, 250);
   };
 
   return (

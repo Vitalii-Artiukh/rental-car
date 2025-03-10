@@ -1,23 +1,44 @@
 .carItemsWrapper {
+  width: 276px;
   height: 424px;
   color: var(--gray);
+  position: relative;
+}
+
+.heartBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.iconHeart {
+  mix-blend-mode: difference;
 }
 
 .imgCar {
-  height: 268px;
   width: 276px;
+  height: 268px;
   object-fit: cover;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  border-radius: 14px;
 }
 
 .titleItem {
   display: flex;
-  align-items: center;
+  align-items: self-end;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.25;
   color: var(--main);
   margin-bottom: 8px;
+  height: 40px;
 }
 .colorBlue {
   color: var(--button);
@@ -49,6 +70,6 @@
 }
 
 .readMoreBtn {
-  margin-top: 28px;
+  margin-top: 12px;
   /* align-items: center; */
 }

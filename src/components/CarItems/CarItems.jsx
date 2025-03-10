@@ -1,13 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button/Button";
-// import HeartIcon from "../HeartIcon/HeartIcon";
 import css from "./CarItems.module.css";
+import Icon from "../ui/icon";
+import clsx from "clsx";
 
-const CarItems = ({ car }) => {
+const CarItems = ({ car, onToggle, isFavorite }) => {
   const location = car.address.split(",");
 
   return (
     <div className={css.carItemsWrapper}>
+      <button className={css.heartBtn} type="button" onClick={onToggle}>
+        <Icon
+          name={isFavorite ? "icon-active" : "icon-default"}
+          className={clsx(isFavorite ? css.iconFavorites : css.iconHeart)}
+        />
+      </button>
+
       <img
         className={css.imgCar}
         src={car.img}
@@ -29,7 +36,12 @@ const CarItems = ({ car }) => {
         <p className={css.city}>{car.type}</p>
         <p className={css.country}>{car.mileage}</p>
       </div>
-      <Button variant="long" type="button" className={css.readMoreBtn}>
+      <Button
+        variant="long"
+        type="button"
+        className={css.readMoreBtn}
+        to={`/details/${car.id}`}
+      >
         Read more
       </Button>
     </div>
