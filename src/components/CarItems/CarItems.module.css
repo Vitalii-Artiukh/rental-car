@@ -1,0 +1,54 @@
+.carItemsWrapper {
+  height: 424px;
+  color: var(--gray);
+}
+
+.imgCar {
+  height: 268px;
+  width: 276px;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.titleItem {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--main);
+  margin-bottom: 8px;
+}
+.colorBlue {
+  color: var(--button);
+}
+
+.addressItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.city {
+  padding-right: 6px;
+  border-right: 1px solid var(--gray-light);
+}
+.country {
+  padding: 0 6px;
+}
+.company {
+  padding: 0 6px;
+  border-right: 1px solid var(--gray-light);
+  border-left: 1px solid var(--gray-light);
+}
+
+.lastString {
+  display: flex;
+  align-items: center;
+  /* padding-bottom: 4px; */
+}
+
+.readMoreBtn {
+  margin-top: 28px;
+  /* align-items: center; */
+}

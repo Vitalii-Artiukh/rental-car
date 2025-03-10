@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import css from "./CustomSelect.module.css";
 import clsx from "clsx";
-import Icon from "../ui/icon";
+import Icon from "../icon";
 
 export const CustomSelect = ({
   name,
@@ -13,46 +13,46 @@ export const CustomSelect = ({
   value, // value
   className,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
 
   const filterRef = useRef(null);
 
   const handleSelect = (option) => {
-    onChange(name, option.value);
-    setSelectedOption(option);
+    onChange(name, option);
+    // setSelectedOption(option);
     setShowOptions(null);
     setFocusedOptionIndex(-1);
   };
 
-  const selectedKeyDown = (option) => {
-    setSelectedOption(option);
-  };
+  // const selectedKeyDown = (name, option) => {
+  //   // onChange(name, option);
+  // };
 
   const optionsValueLabel = options.map((opt) => ({
     value: opt,
     label: opt,
   }));
 
-  const handleKeyDown = (e) => {
-    if (e.key === "ArrowDown") {
-      setFocusedOptionIndex(
-        (prevIndex) => (prevIndex + 1) % optionsValueLabel.length
-      );
-    } else if (e.key === "ArrowUp") {
-      setFocusedOptionIndex(
-        (prevIndex) =>
-          (prevIndex - 1 + optionsValueLabel.length) % optionsValueLabel.length
-      );
-    } else if (e.key === "Enter" && focusedOptionIndex >= 0) {
-      handleSelect(optionsValueLabel[focusedOptionIndex]);
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "ArrowDown") {
+  //     setFocusedOptionIndex(
+  //       (prevIndex) => (prevIndex + 1) % optionsValueLabel.length
+  //     );
+  //   } else if (e.key === "ArrowUp") {
+  //     setFocusedOptionIndex(
+  //       (prevIndex) =>
+  //         (prevIndex - 1 + optionsValueLabel.length) % optionsValueLabel.length
+  //     );
+  //   } else if (e.key === "Enter" && focusedOptionIndex >= 0) {
+  //     handleSelect(optionsValueLabel[focusedOptionIndex]);
+  //   }
+  // };
 
-  useEffect(() => {
-    selectedKeyDown(optionsValueLabel[focusedOptionIndex]);
-  }, [focusedOptionIndex, optionsValueLabel]);
+  // useEffect(() => {
+  //   selectedKeyDown(optionsValueLabel[focusedOptionIndex]);
+  // }, [focusedOptionIndex, optionsValueLabel]);
 
   // closed dropdown
   useEffect(() => {
@@ -72,12 +72,16 @@ export const CustomSelect = ({
       ref={filterRef}
       className={clsx(css.customSelect, className)}
       tabIndex="0"
-      onKeyDown={handleKeyDown}
+      // onKeyDown={handleKeyDown}
     >
       <p className={css.labelName}>{labelText}</p>
-      <div className={css.input} onClick={() => setShowOptions(!showOptions)}>
-        {selectedOption ? (
-          name === "rentalPrice" && value ? (
+      <div
+        className={css.input}
+        onClick={() => setShowOptions(!showOptions)}
+        name={name}
+      >
+        {value ? (
+          name === "rentalPrice" && value !== "" ? (
             <p>
               <span>To $ </span>
               <span className={css.fontWeight}>{value}</span>
@@ -105,7 +109,7 @@ export const CustomSelect = ({
                 css.dropdownItem,
                 index === focusedOptionIndex ? css.focused : ""
               )}
-              onClick={() => handleSelect(option)}
+              onClick={() => handleSelect(option.value)}
             >
               {option.label}
             </div>

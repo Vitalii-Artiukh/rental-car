@@ -5,7 +5,7 @@ export const InputCustomText = ({
   name,
   placeholder,
   labelText,
-  localFilters,
+  toFilter,
   handleChange,
 }) => {
   return (
@@ -16,7 +16,7 @@ export const InputCustomText = ({
         id={name}
         className={className}
         placeholder={placeholder}
-        value={localFilters}
+        value={toFilter}
         onChange={(e) => handleChange(name, e.target.value)}
       />
     </label>

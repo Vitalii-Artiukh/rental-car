@@ -5,21 +5,15 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  params: {
-    limit: 12,
-  },
 });
 
 export const fetchAllCars = async ({ filters }) => {
-  console.log(filters);
   const response = await axiosInstance.get("/cars", {
-    params: { ...filters },
+    params: { ...filters, limit: 12 },
   });
   const data = response.data;
   return data;
 };
-
-// fetchAllCars({ page: 2 });
 
 export const fetchByIdCar = async (id) => {
   const response = await axiosInstance.get(`/cars/${id}`);

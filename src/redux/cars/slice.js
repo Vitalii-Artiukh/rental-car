@@ -34,7 +34,6 @@ const carSlice = createSlice({
       } else {
         state.favorite.push(carId);
       }
-      // localStorage.setItem("favorite", JSON.stringify(state.favorite));
     },
     setPage(state, action) {
       state.page = action.payload;

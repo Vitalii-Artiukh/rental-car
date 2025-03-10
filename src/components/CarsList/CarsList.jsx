@@ -1,71 +1,90 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  selectCars,
-  selectError,
-  selectFavoriteCars,
-  selectIsLoading,
-  selectPage,
-  selectTotalPages,
-} from "../../redux/car/selectors";
-import { fetchCars } from "../../redux/car/operations";
-import { setPage, toggleFavoriteCar } from "../../redux/car/slice";
-import CarCard from "../CarItem/CarItem";
+import * as carsSelect from "../../redux/cars/selectors";
+import { fetchCars } from "../../redux/cars/operations";
+import { setPage, favoriteToggle } from "../../redux/cars/slice";
+import CarItems from "../CarItems/CarItems";
 import Button from "../ui/Button/Button";
-import FilterForm from "../FilterForm/FilterForm";
+import FilterForm from "../FormFilter/FormFilter";
 import css from "./CarsList.module.css";
 import { useLocation } from "react-router-dom";
-import { selectFilter } from "../../redux/filter/selectors";
+import { selectorFilter } from "../../redux/filters/selectors";
+
+import React from "react";
 
 const CarsList = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const cars = useSelector(carsSelect.selectorCars);
 
-  const page = useSelector(selectPage);
-  const filters = useSelector(selectFilter);
-  const cars = useSelector(selectCars);
-  const favoriteCars = useSelector(selectFavoriteCars);
-  const totalPages = useSelector(selectTotalPages);
-  const error = useSelector(selectError);
-  const isLoading = useSelector(selectIsLoading);
-
-  useEffect(() => {
-    if (location.pathname === "/catalog") {
-      dispatch(fetchCars({ page, filters }));
-    }
-  }, [dispatch, page, filters, location.pathname]);
-
-  const uniqueCars = Array.from(
-    new Map(cars.map((car) => [car.id, car])).values()
-  );
-
-  const handleToggleFavorite = (id) => {
-    dispatch(toggleFavoriteCar(id));
-  };
-
-  const handleLoadMore = () => {
-    if (page < totalPages) {
-      dispatch(setPage(page + 1));
-    }
-  };
-
-  useEffect(() => {
-    if (page > 1) {
-      const cardHeight = 276;
-      const rows = 2;
-      const gap = 90;
-      window.scrollBy({
-        top: cardHeight * rows + gap,
-        behavior: "smooth",
-      });
-    }
-  }, [cars]);
+  console.log(cars);
 
   return (
-    <div className={css.wrapper}>
-      <FilterForm />
-      <ul className={css.list}>
-        {!error && isLoading && page === 1 ? (
+    <ul className={css.carListWrapper}>
+      {cars.map((car) => (
+        <li key={car.id}>
+          <CarItems car={car} />
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default CarsList;
+
+// const CarsList = () => {
+// const dispatch = useDispatch();
+// const location = useLocation();
+
+// const page = useSelector(carsSelect.selectorPage);
+// const cars = useSelector(carsSelect.selectorCars);
+// const favoriteCars = useSelector(carsSelect.selectorFavoriteCars);
+// const totalPages = useSelector(carsSelect.selectorTotalPages);
+// const error = useSelector(carsSelect.selectorError);
+// const isLoading = useSelector(carsSelect.selectorIsLoading);
+
+// const filters = useSelector(selectorFilter);
+
+// useEffect(() => {
+//   if (location.pathname === "/catalog") {
+//     dispatch(fetchCars({ page, filters }));
+//   }
+// }, [dispatch, page, filters, location.pathname]);
+
+// const uniqueCars = Array.from(
+//   new Map(cars.map((car) => [car.id, car])).values()
+// );
+
+// const handleToggleFavorite = (id) => {
+//   dispatch(favoriteToggle(id));
+// };
+
+// const handleLoadMore = () => {
+//   if (page < totalPages) {
+//     dispatch(setPage(page + 1));
+//   }
+// };
+
+// useEffect(() => {
+//   if (page > 1) {
+//     const cardHeight = 276;
+//     const rows = 2;
+//     const gap = 90;
+//     window.scrollBy({
+//       top: cardHeight * rows + gap,
+//       behavior: "smooth",
+//     });
+//   }
+// }, [cars]);
+
+// return (
+// <div className={css.wrapper}>
+{
+  /* <FilterForm /> */
+}
+{
+  /* <ul className={css.list}> */
+}
+{
+  /* {!error && isLoading && page === 1 ? (
           <></>
         ) : uniqueCars.length > 0 ? (
           uniqueCars.map((car) => (
@@ -83,9 +102,13 @@ const CarsList = () => {
           <p className={css.errorMessage}>
             No cars found. Try changing the filters.
           </p>
-        )}
-      </ul>
-      {!isLoading && !error && uniqueCars.length > 0 && page < totalPages && (
+        )} */
+}
+{
+  /* </ul> */
+}
+{
+  /* {!isLoading && !error && uniqueCars.length > 0 && page < totalPages && (
         <Button
           className={css.btnLoadMore}
           variant="loadmore"
@@ -94,9 +117,12 @@ const CarsList = () => {
         >
           Load more
         </Button>
-      )}
-    </div>
-  );
-};
+      )} */
+}
+{
+  /* </div> */
+}
+// );
+// };
 
-export default CarsList;
+// export default CarsList;
