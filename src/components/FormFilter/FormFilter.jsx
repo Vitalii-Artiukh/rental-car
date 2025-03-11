@@ -12,7 +12,6 @@ import { setPage } from "../../redux/cars/slice";
 
 const FormFilter = () => {
   const dispatch = useDispatch();
-  const cars = useSelector(carsSelect.selectorCars);
   const optionBrand = useSelector(carsSelect.selectorBrands);
   const globalFilter = useSelector(selectorFilter);
   const page = useSelector(carsSelect.selectorPage);
@@ -93,7 +92,7 @@ const FormFilter = () => {
     );
     dispatch(setPage(1));
     setTimeout(() => {
-      window.scrollBy({
+      window.scrollTo({
         top: -window.innerHeight,
         behavior: "smooth",
       });

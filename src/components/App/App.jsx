@@ -5,7 +5,7 @@ import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 import HomePage from "../../pages/HomePage/HomePage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import GeneralWrapper from "../ui/Layout.jsx";
-import * as operations from "../../redux/cars/operations.js";
+// import * as operations from "../../redux/cars/operations.js";
 
 function App() {
   return (

@@ -1,16 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import * as carsSelect from "../../redux/cars/selectors";
-import { fetchCars } from "../../redux/cars/operations";
 import { setPage, favoriteToggle } from "../../redux/cars/slice";
 import CarItems from "../CarItems/CarItems";
 import Button from "../ui/Button/Button";
-import FilterForm from "../FormFilter/FormFilter";
 import css from "./CarsList.module.css";
 import { useLocation } from "react-router-dom";
-import { selectorFilter } from "../../redux/filters/selectors";
 
-import React from "react";
 import Loader from "../ui/Loader/Loader";
 
 const CarsList = () => {
@@ -21,11 +17,6 @@ const CarsList = () => {
   const totalPages = useSelector(carsSelect.selectorTotalPages);
   const isLoading = useSelector(carsSelect.selectorIsLoading);
   const error = useSelector(carsSelect.selectorError);
-
-  // const uniqueCars = Array.from(
-  //   new Map(cars.map((car) => [car.id, car])).values()
-  // );
-  // console.log(uniqueCars);
 
   const handleToggleFavorite = (id) => {
     // console.log(id);
@@ -38,21 +29,25 @@ const CarsList = () => {
 
   useEffect(() => {
     if (page > 1) {
-      const cardHeight = 230;
-      const rows = 2;
-      const gap = 90;
+      const itemsHeight = 400;
+      const gap = 48;
       setTimeout(() => {
         window.scrollBy({
-          top: cardHeight * rows + gap,
+          top: itemsHeight + gap,
           behavior: "smooth",
         });
-      }, 250);
+      }, 350);
     }
-  }, [cars, page]);
+  }, [page]);
+
+  // array with unique keys
+  const keyCars = Array.from(
+    new Map(cars.map((car) => [car.id, car])).values()
+  );
 
   return (
     <ul className={css.carListWrapper}>
-      {cars.map((car) => (
+      {keyCars?.map((car) => (
         <li key={car.id}>
           <CarItems
             car={car}
@@ -118,11 +113,11 @@ export default CarsList;
 
 // useEffect(() => {
 //   if (page > 1) {
-//     const cardHeight = 276;
+//     const itemsHeight = 276;
 //     const rows = 2;
 //     const gap = 90;
 //     window.scrollBy({
-//       top: cardHeight * rows + gap,
+//       top: itemsHeight * rows + gap,
 //       behavior: "smooth",
 //     });
 //   }
