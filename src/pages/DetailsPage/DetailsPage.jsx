@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import Details from "../../components/Details/Details";
-import css from "./DetailsPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectorIsLoading,
-  selectorSelectedCar,
-} from "../../redux/cars/selectors";
-import { useEffect } from "react";
-import { fetchCarById } from "../../redux/cars/operations";
+// import css from "./DetailsPage.module.css";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//   selectorIsLoading,
+//   selectorSelectedCar,
+// } from "../../redux/cars/selectors";
+// import { useEffect } from "react";
+// import { fetchCarById } from "../../redux/cars/operations";
 
 const DetailsPage = () => {
   // const { id } = useParams();

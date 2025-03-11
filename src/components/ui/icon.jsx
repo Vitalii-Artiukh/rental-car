@@ -7,7 +7,7 @@ const Icon = ({ name, fill, stroke, width = 16, height = 16, className }) => {
       stroke={stroke}
       className={className}
     >
-      <use href={`/public/symbol-defs.svg#${name}`}></use>
+      <use href={`/public/mainSvg.svg#${name}`}></use>
     </svg>
   );
 };
