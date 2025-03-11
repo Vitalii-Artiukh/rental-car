@@ -54,7 +54,7 @@ const carSlice = createSlice({
       .addCase(operations.fetchCarById.pending, handlePending)
       .addCase(operations.fetchCarById.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.selected = action.payload;
+        state.selectedCar = action.payload;
       })
       .addCase(operations.fetchCarById.rejected, handleReject)
       .addCase(operations.fetchCarsBrand.pending, handlePending)

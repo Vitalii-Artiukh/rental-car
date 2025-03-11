@@ -1,41 +1,26 @@
+import { useParams } from "react-router-dom";
+import Details from "../../components/Details/Details";
 import css from "./DetailsPage.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectorIsLoading,
+  selectorSelectedCar,
+} from "../../redux/cars/selectors";
+import { useEffect } from "react";
+import { fetchCarById } from "../../redux/cars/operations";
 
 const DetailsPage = () => {
-  return (
-    <div className={css.detailWrapper}>
-      <div className={css.photoFormWrapper}>
-        <div
-          className={css.photo}
-          // style={{ width: 640, height: 512, backgroundColor: "yellowgreen" }}
-        >
-          photo
-        </div>
-        <div
-          className={css.form}
-          // style={{
-          //   width: 640,
-          //   height: 488,
-          //   backgroundColor: "gray",
-          // }}
-        >
-          form
-        </div>
-      </div>
+  // const { id } = useParams();
+  // const dispatch = useDispatch();
+  // const isLoading = useSelector(selectorIsLoading);
 
-      <div className={css.descriptionWrapper}>
-        <div
-          className={css.titleDescription}
-          // style={{ width: 488, height: 180, backgroundColor: "yellow" }}
-        >
-          title Description
-        </div>
-        <div
-          className={css.description}
-          // style={{ width: 488, height: 772, backgroundColor: "yellow" }}
-        >
-          description
-        </div>
-      </div>
+  // useEffect(() => {
+  //   dispatch(fetchCarById(id));
+  // }, [dispatch, id]);
+
+  return (
+    <div>
+      <Details />
     </div>
   );
 };

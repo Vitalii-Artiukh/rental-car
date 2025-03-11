@@ -1,0 +1,68 @@
+.titleDescription {
+  /* width: 488px;
+  height: 180px; */
+  /* margin-bottom: 88px; */
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  margin-bottom: 8px;
+}
+
+.idFromPhoto {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--gray);
+}
+
+.locations {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: var(--button);
+  margin-bottom: 32px;
+}
+
+.descriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 488px;
+  height: 1040px;
+  color: var(--main);
+}
+
+.conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.conditionsTitle {
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.conditionsItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}

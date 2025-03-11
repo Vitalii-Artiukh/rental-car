@@ -1,0 +1,9 @@
+.detailWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: 84px 120px 104px;
+  /* grid-template-columns: 100px 90px; */
+  font-size: large;
+  column-gap: 72px;
+}

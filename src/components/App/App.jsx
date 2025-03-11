@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<GeneralWrapper />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/details/:carId" element={<DetailsPage />} />
+          <Route path="/details/:id" element={<DetailsPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Route>
