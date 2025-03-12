@@ -16,7 +16,7 @@ const Description = ({ car }) => {
           <span className={css.idFromPhoto}>id: {idImg}</span>
         </h1>
         <p className={css.locations}>
-          <Icon name={"icon-location"} />
+          <Icon name={"icon-location"} className={css.zIndex} />
           {city}, {country} {`Mileage: ${mileage} km`}
         </p>
         <p className={css.price}>${car?.rentalPrice}</p>
