@@ -1,4 +1,4 @@
-import Icon from "../ui/icon";
+import Icon from "../ui/Icon/Icon";
 import css from "./Description.module.css";
 
 const Description = ({ car }) => {

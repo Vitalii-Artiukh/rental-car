@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import css from "./CustomSelect.module.css";
 import clsx from "clsx";
-import Icon from "../icon";
+import Icon from "../Icon/Icon";
 
 export const CustomSelect = ({
   name,
