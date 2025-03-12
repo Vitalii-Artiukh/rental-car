@@ -1,8 +1,8 @@
 .homeWrapper {
   background-color: var(--gray);
   background-image: image-set(
-    url("../../assets/picture/Picture@1x.jpg") 1x,
-    url("../../assets/picture/Picture@2x.jpg") 2x
+    url("../../assets/Picture@1x.jpg") 1x,
+    url("../../assets/Picture@2x.jpg") 2x
   );
   background-repeat: no-repeat;
   background-position: center top 4px;
