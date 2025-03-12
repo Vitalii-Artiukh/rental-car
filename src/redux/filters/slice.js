@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  filter: {
-    brand: "",
-    rentalPrice: "",
-    minMileage: "",
-    maxMileage: "",
-  },
+  filter: null,
+  // {
+  //   brand: "",
+  //   rentalPrice: "",
+  //   minMileage: "",
+  //   maxMileage: "",
+  // },
 };
 
 const filtersSlice = createSlice({

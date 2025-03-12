@@ -4,59 +4,42 @@ import * as carsSelect from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../ui/CustomSelect/CustomSelect";
-import { setFilter } from "../../redux/filters/slice";
+import { resetFilters, setFilter } from "../../redux/filters/slice";
 import Button from "../ui/Button/Button";
 import css from "./FormFilter.module.css";
 import { selectorFilter } from "../../redux/filters/selectors";
 import { setPage } from "../../redux/cars/slice";
+import { useLocation } from "react-router-dom";
 
 const FormFilter = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const optionBrand = useSelector(carsSelect.selectorBrands);
   const globalFilter = useSelector(selectorFilter);
   const page = useSelector(carsSelect.selectorPage);
 
-  const [cleanFilters, setCleanFilters] = useState({});
+  const [localFilter, setLocalfilter] = useState(null);
 
   const handleChange = (name, value) => {
-    const dataValue = (prev) => ({
+    setLocalfilter((prev) => ({
       ...prev,
       [name]: name.includes("Mileage")
         ? Number(value.replace(/\D/g, "")) || ""
         : value || "",
-    });
-    dispatch(setFilter(dataValue()));
-  };
-  // clean filters for fetch cars
-  const filtersClean = () => {
-    if (globalFilter.brand !== "") {
-      setCleanFilters((prev) => ({ ...prev, brand: globalFilter.brand }));
-    }
-    if (globalFilter.rentalPrice !== "") {
-      setCleanFilters((prev) => ({
-        ...prev,
-        rentalPrice: globalFilter.rentalPrice,
-      }));
-    }
-    if (globalFilter.minMileage !== "") {
-      setCleanFilters((prev) => ({
-        ...prev,
-        minMileage: globalFilter.minMileage,
-      }));
-    }
-    if (globalFilter.maxMileage !== "") {
-      setCleanFilters((prev) => ({
-        ...prev,
-        maxMileage: globalFilter.maxMileage,
-      }));
-    }
+    }));
   };
 
   // submit form
   const handleSubmit = (e) => {
     e.preventDefault();
-    filtersClean();
     dispatch(setPage(1));
+    if (localFilter) {
+      dispatch(setFilter(localFilter));
+      dispatch(fetchCars({ page, ...localFilter }));
+      return;
+    } else {
+      dispatch(resetFilters());
+    }
   };
 
   // fetch brands
@@ -76,20 +59,15 @@ const FormFilter = () => {
 
   // fetch cars
   useEffect(() => {
-    dispatch(fetchCars({ page, ...cleanFilters }));
-  }, [cleanFilters, dispatch, page]);
+    if (location.pathname === "/catalog") {
+      dispatch(fetchCars({ page, ...globalFilter }));
+    }
+  }, [page, globalFilter, location.pathname]);
 
   // reset all filters
-  const resetFilters = () => {
-    setCleanFilters({});
-    dispatch(
-      setFilter({
-        brand: "",
-        rentalPrice: "",
-        minMileage: "",
-        maxMileage: "",
-      })
-    );
+  const reset = () => {
+    setLocalfilter(null);
+    dispatch(resetFilters());
     dispatch(setPage(1));
     setTimeout(() => {
       window.scrollTo({
@@ -105,7 +83,7 @@ const FormFilter = () => {
         type="button"
         variant="transparent"
         className={css.resetBtn}
-        onClick={resetFilters}
+        onClick={reset}
       >
         Reset all filters
       </Button>
@@ -117,7 +95,7 @@ const FormFilter = () => {
           labelText={"Car brand"}
           options={optionBrand}
           onChange={(name, val) => handleChange(name, val)}
-          value={globalFilter.brand}
+          value={localFilter?.brand}
         />
 
         <CustomSelect
@@ -127,7 +105,7 @@ const FormFilter = () => {
           labelText={"Price/ 1 hour"}
           options={optionPrice}
           onChange={(name, val) => handleChange(name, val)}
-          value={globalFilter.rentalPrice}
+          value={localFilter?.rentalPrice}
         />
         <InputCustomText
           name={"minMileage"}
@@ -135,8 +113,10 @@ const FormFilter = () => {
           labelText="Car mileage / km"
           placeholder="From"
           toFilter={
-            globalFilter?.minMileage
-              ? `From ${Number(globalFilter.minMileage).toLocaleString("gb")}`
+            localFilter?.minMileage
+              ? `From ${Number(localFilter?.minMileage).toLocaleString(
+                  "uk-UA"
+                )}`
               : ""
           }
           handleChange={(name, val) => handleChange(name, val)}
@@ -146,8 +126,8 @@ const FormFilter = () => {
           className={css.inputTo}
           placeholder="To"
           toFilter={
-            globalFilter?.maxMileage
-              ? `To ${Number(globalFilter.maxMileage).toLocaleString("gb")}`
+            localFilter?.maxMileage
+              ? `To ${Number(localFilter?.maxMileage).toLocaleString("uk-UA")}`
               : ""
           }
           handleChange={(name, val) => handleChange(name, val)}

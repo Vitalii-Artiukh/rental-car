@@ -45,33 +45,37 @@ const CarsList = () => {
   );
 
   return (
-    <ul className={css.carListWrapper}>
-      {keyCars?.map((car) => (
-        <li key={car.id}>
-          <CarItems
-            car={car}
-            onToggle={() => handleToggleFavorite(car.id)}
-            isFavorite={Array.isArray(favorite) && favorite.includes(car.id)}
-          />
-        </li>
-      ))}
+    <div>
+      <ul className={css.carListWrapper}>
+        {keyCars?.map((car) => (
+          <li key={car.id}>
+            <CarItems
+              car={car}
+              onToggle={() => handleToggleFavorite(car.id)}
+              isFavorite={Array.isArray(favorite) && favorite.includes(car.id)}
+            />
+          </li>
+        ))}
+      </ul>
       {!error && isLoading ? (
         <div className={css.loaderList}>
           <Loader />
         </div>
       ) : (
         page < totalPages && (
-          <Button
-            type="button"
-            variant="transparent"
-            className={css.moreBtn}
-            onClick={handleMore}
-          >
-            Load more
-          </Button>
+          <div className={css.loaderList}>
+            <Button
+              type="button"
+              variant="transparent"
+              className={css.moreBtn}
+              onClick={handleMore}
+            >
+              Load more
+            </Button>
+          </div>
         )
       )}
-    </ul>
+    </div>
   );
 };
 

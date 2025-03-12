@@ -2,7 +2,12 @@ import Icon from "../ui/Icon/Icon";
 import css from "./Description.module.css";
 
 const Description = ({ car }) => {
-  const city = car?.address.split(",")[1];
+  const city = (city) => {
+    if (city?.toLowerCase().trim() === "kiev") {
+      return "Kyiv";
+    }
+    return city;
+  };
   const country = car?.address.split(",")[2];
   const mileage = Number(car?.mileage).toLocaleString("uk-UA");
   const index = car?.img.split("/").length - 1;
@@ -17,7 +22,8 @@ const Description = ({ car }) => {
         </h1>
         <p className={css.locations}>
           <Icon name={"icon-location"} />
-          {city}, {country} {`Mileage: ${mileage} km`}
+          {city(car?.address.split(",")[1])}, {country}{" "}
+          {`Mileage: ${mileage} km`}
         </p>
         <p className={css.price}>${car?.rentalPrice}</p>
         <p className={css.conditionsItem}>{car?.description}</p>

@@ -4,7 +4,14 @@ import Icon from "../ui/Icon/Icon";
 import clsx from "clsx";
 
 const CarItems = ({ car, onToggle, isFavorite }) => {
-  const location = car.address.split(",");
+  const city = (city) => {
+    if (city?.toLowerCase().trim() === "kiev") {
+      return "Kyiv";
+    }
+    return city;
+  };
+  const country = car?.address.split(",")[2];
+  const mileage = Number(car?.mileage).toLocaleString("uk-UA");
 
   return (
     <div className={css.carItemsWrapper}>
@@ -28,13 +35,13 @@ const CarItems = ({ car, onToggle, isFavorite }) => {
         <p style={{ marginLeft: "auto" }}>{`$${car.rentalPrice}`}</p>
       </div>
       <div className={css.addressItem}>
-        <p className={css.city}>{location[1]}</p>
-        <p className={css.country}>{location[2]}</p>
+        <p className={css.city}>{city(car?.address.split(",")[1])}</p>
+        <p className={css.country}>{country}</p>
         <p className={css.company}>{car.rentalCompany}</p>
       </div>
       <div className={css.lastString}>
         <p className={css.city}>{car.type}</p>
-        <p className={css.country}>{car.mileage}</p>
+        <p className={css.country}>{mileage} km</p>
       </div>
       <Button
         variant="long"
