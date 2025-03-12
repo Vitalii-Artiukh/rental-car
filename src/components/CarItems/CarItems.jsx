@@ -1,6 +1,6 @@
 import Button from "../ui/Button/Button";
 import css from "./CarItems.module.css";
-import Icon from "../ui/icon";
+import Icon from "../ui/Icon/Icon";
 import clsx from "clsx";
 
 const CarItems = ({ car, onToggle, isFavorite }) => {

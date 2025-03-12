@@ -1,4 +1,4 @@
-import mySprite from "../../assets/mainSvg.svg";
+import mySprite from "../../../assets/mainSvg.svg";
 
 const Icon = ({ name, fill, stroke, width = 16, height = 16, className }) => {
   return (
