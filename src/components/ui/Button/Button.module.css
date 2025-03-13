@@ -1,6 +1,4 @@
-.default,
-.long,
-.transparent {
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,6 +8,9 @@
   cursor: pointer;
   outline: none;
   transition: var(--primary-transition);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .default,
@@ -22,34 +23,16 @@
 }
 
 .transparent {
+  color: var(--main);
   background-color: transparent;
   border: 1px solid var(--button);
-}
-
-.default .btn,
-.long .btn,
-.transparent .btn {
-  background-color: inherit;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 1.25;
-  border: none;
-}
-
-.default .btn,
-.long .btn {
-  color: var(--white);
-}
-
-.transparent .btn {
-  color: var(--main);
 }
 
 .default,
 .long {
   background-color: var(--button);
   border: none;
+  color: var(--white);
 }
 
 .default:hover,

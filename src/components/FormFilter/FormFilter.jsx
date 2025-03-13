@@ -78,7 +78,7 @@ const FormFilter = () => {
   };
 
   return (
-    <form className={css.formStopped}>
+    <form className={css.formStopped} onSubmit={handleSubmit}>
       <Button
         type="button"
         variant="transparent"
@@ -115,7 +115,7 @@ const FormFilter = () => {
           toFilter={
             localFilter?.minMileage
               ? `From ${Number(localFilter?.minMileage).toLocaleString(
-                  "uk-UA"
+                  "en-US"
                 )}`
               : ""
           }
@@ -127,12 +127,12 @@ const FormFilter = () => {
           placeholder="To"
           toFilter={
             localFilter?.maxMileage
-              ? `To ${Number(localFilter?.maxMileage).toLocaleString("uk-UA")}`
+              ? `To ${Number(localFilter?.maxMileage).toLocaleString("en-US")}`
               : ""
           }
           handleChange={(name, val) => handleChange(name, val)}
         />
-        <Button className={css.btnSubmit} type="submit" onClick={handleSubmit}>
+        <Button className={css.btnSubmit} type="submit">
           Search
         </Button>
       </div>

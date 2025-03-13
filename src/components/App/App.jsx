@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 
 import GeneralWrapper from "../ui/Layout.jsx";
+import ToastProp from "../ui/ToastProp/ToastProp.jsx";
 const DetailsPage = lazy(() => import("../../pages/DetailsPage/DetailsPage"));
 const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
@@ -12,6 +13,7 @@ const HomePage = lazy(() => import("../../pages/HomePage/HomePage.jsx"));
 function App() {
   return (
     <>
+      <ToastProp />
       <Routes>
         <Route path="/" element={<GeneralWrapper />}>
           <Route path="/" element={<HomePage />} />
