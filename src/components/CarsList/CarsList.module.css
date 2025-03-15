@@ -1,9 +1,11 @@
 .carListWrapper {
-  padding: 160px 120px 32px;
+  padding: 160px 0 32px;
+  /* padding: 160px 120px 32px; */
   margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 48px 32px;
+  /* background-color: var(--white); */
 }
 
 .moreBtn {

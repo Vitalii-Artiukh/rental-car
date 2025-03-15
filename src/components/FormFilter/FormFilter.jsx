@@ -18,10 +18,10 @@ const FormFilter = () => {
   const globalFilter = useSelector(selectorFilter);
   const page = useSelector(carsSelect.selectorPage);
 
-  const [localFilter, setLocalfilter] = useState(null);
+  const [localFilter, setLocalFilter] = useState(null);
 
   const handleChange = (name, value) => {
-    setLocalfilter((prev) => ({
+    setLocalFilter((prev) => ({
       ...prev,
       [name]: name.includes("Mileage")
         ? Number(value.replace(/\D/g, "")) || ""
@@ -62,11 +62,11 @@ const FormFilter = () => {
     if (location.pathname === "/catalog") {
       dispatch(fetchCars({ page, ...globalFilter }));
     }
-  }, [page, globalFilter, location.pathname]);
+  }, [page, globalFilter, dispatch, location.pathname]);
 
   // reset all filters
   const reset = () => {
-    setLocalfilter(null);
+    setLocalFilter(null);
     dispatch(resetFilters());
     dispatch(setPage(1));
     setTimeout(() => {
@@ -79,14 +79,6 @@ const FormFilter = () => {
 
   return (
     <form className={css.formStopped} onSubmit={handleSubmit}>
-      <Button
-        type="button"
-        variant="transparent"
-        className={css.resetBtn}
-        onClick={reset}
-      >
-        Reset all filters
-      </Button>
       <div className={css.formWrapper}>
         <CustomSelect
           name={"brand"}
@@ -132,9 +124,20 @@ const FormFilter = () => {
           }
           handleChange={(name, val) => handleChange(name, val)}
         />
-        <Button className={css.btnSubmit} type="submit">
-          Search
-        </Button>
+        {localFilter ? (
+          <Button className={css.btnSubmit} type="submit">
+            Search
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            variant="transparent"
+            className={css.resetBtn}
+            onClick={reset}
+          >
+            Reset filters
+          </Button>
+        )}
       </div>
     </form>
   );

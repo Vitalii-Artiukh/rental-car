@@ -4,11 +4,10 @@ import Container from "./Container/Container";
 import { Outlet } from "react-router-dom";
 import Loader from "./Loader/Loader";
 
-const GeneralWrapper = () => {
+const Layout = () => {
   return (
     <>
       <Header />
-
       <main>
         <Container>
           <Suspense fallback={<Loader />}>
@@ -20,4 +19,4 @@ const GeneralWrapper = () => {
   );
 };
 
-export default GeneralWrapper;
+export default Layout;

@@ -3,13 +3,14 @@
   /* left: calc(50% - 466px); */
   background-color: var(--white);
   padding-top: 16px;
-  width: 1440px;
+  width: 1200px;
+  /* width: 100%; */
   z-index: 999;
 }
 
 .resetBtn {
-  margin: 0 auto 16px;
-  width: 200px;
+  margin-left: 16px;
+  /* width: 200px; */
   border: 1px solid var(--gray-light);
   background-color: var(--inputs);
 }
