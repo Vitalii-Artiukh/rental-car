@@ -1,7 +1,7 @@
 .container,
 .homePageContainer {
   width: 320px;
-  padding: 48px 20px 0;
+  padding: 48px 22px 0;
   margin: 0 auto;
   height: 100%;
   background-color: var(--white);
@@ -9,6 +9,13 @@
 
 .homePageContainer {
   background-color: var(--gray);
+  background-image: image-set(
+    url("../../../assets/Picture@1x.jpg") 1x,
+    url("../../../assets/Picture@2x.jpg") 2x
+  );
+  background-repeat: no-repeat;
+  background-position: left -450px top 48px;
+  background-size: 1440px;
 }
 
 @media screen and (min-width: 768px) {
@@ -18,10 +25,6 @@
     padding: 68px 56px 0;
   }
   .homePageContainer {
-    background-image: image-set(
-      url("../../../assets/Picture@1x.jpg") 1x,
-      url("../../../assets/Picture@2x.jpg") 2x
-    );
     background-repeat: no-repeat;
     background-position: left -400px top 68px;
     background-size: 1440px;
