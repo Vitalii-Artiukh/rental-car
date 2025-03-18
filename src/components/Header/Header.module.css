@@ -1,10 +1,11 @@
 .header {
-  /* width: 100%; */
-  width: 320px;
+  width: 100%;
+  /* width: 320px; */
   margin: 0 auto;
   position: fixed;
   top: 0;
-  left: calc(50% - 160px);
+  left: 0;
+  /* left: calc(50% - 160px); */
   background-color: var(--badges);
   z-index: 999;
 }

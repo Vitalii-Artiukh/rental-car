@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   padding: 420px 0 58px 0;
+  max-width: 276px;
+  margin: 0 auto;
   h1 {
     text-align: center;
     color: var(--white);
@@ -29,6 +31,7 @@
 @media screen and (min-width: 768px) {
   .homeWrapper {
     padding: 430px 0 60px 0;
+    max-width: 656px;
     h1 {
       font-size: 50px;
       line-height: 1.25;

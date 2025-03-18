@@ -8,6 +8,7 @@
 }
 
 .homePageContainer {
+  width: 100%;
   background-color: var(--gray);
   background-image: image-set(
     url("../../../assets/Picture@1x.jpg") 1x,
@@ -26,7 +27,7 @@
   }
   .homePageContainer {
     background-repeat: no-repeat;
-    background-position: left -400px top 68px;
+    background-position: left calc(50% - 70px) top 68px;
     background-size: 1440px;
   }
 }
