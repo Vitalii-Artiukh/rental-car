@@ -1,8 +1,10 @@
 .header {
-  width: 100%;
+  /* width: 100%; */
+  width: 320px;
+  margin: 0 auto;
   position: fixed;
   top: 0;
-  left: 0;
+  left: calc(50% - 160px);
   background-color: var(--badges);
   z-index: 999;
 }
@@ -24,6 +26,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  .header {
+    width: 100%;
+    left: 0;
+  }
   .headerContainer {
     height: 68px;
     max-width: 768px;
@@ -39,13 +45,14 @@
 }
 
 .link:hover,
-.link:focus {
-  color: var(--button-hover);
-}
-
+.link:focus,
 .active {
   color: var(--button-hover);
 }
+
+/* .active {
+  color: var(--button-hover);
+} */
 
 .linkWrapper {
   display: flex;
