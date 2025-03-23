@@ -1,11 +1,9 @@
 .header {
   width: 100%;
-  /* width: 320px; */
   margin: 0 auto;
   position: fixed;
   top: 0;
   left: 0;
-  /* left: calc(50% - 160px); */
   background-color: var(--badges);
   z-index: 999;
 }
@@ -18,23 +16,87 @@
   max-width: 320px;
   padding: 16px 20px;
   margin: 0 auto;
+  .linkWrapper {
+    display: flex;
+    align-items: center;
+    color: var(--main);
+    gap: 16px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    .link {
+      transition: color var(--primary-transition);
+    }
+    .link:hover,
+    .link:focus,
+    .active {
+      color: var(--button-hover);
+    }
+    .iconMenu {
+      fill: var(--main);
+      width: 16px;
+      height: 16px;
+      transition: fill, rotate var(--primary-transition);
+    }
+    .iconFilter {
+      stroke: var(--main);
+      width: 16px;
+      height: 16px;
+    }
+  }
+  & button {
+    background-color: inherit;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      .iconMenu {
+        fill: var(--button-hover);
+        rotate: -90deg;
+      }
+    }
+  }
 }
 
 .logo {
-  width: 104px;
-  height: 16px;
+  /* width: 84px; */
+  /* height: 16px; */
   margin-right: auto;
+}
+
+.iconLogo {
+  width: 84px;
 }
 
 @media screen and (min-width: 768px) {
   .header {
     width: 100%;
     left: 0;
+    .iconLogo {
+      width: 104px;
+    }
   }
   .headerContainer {
     height: 68px;
     max-width: 768px;
-    padding: 26px 92px;
+    padding: 21px 92px;
+    .linkWrapper {
+      gap: 32px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 1.25;
+      .iconMenu {
+        width: 20px;
+        height: 20px;
+      }
+      .iconFilter {
+        stroke: var(--main);
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 }
 
@@ -43,23 +105,4 @@
     max-width: 1440px;
     padding: 26px 120px;
   }
-}
-
-.link:hover,
-.link:focus,
-.active {
-  color: var(--button-hover);
-}
-
-/* .active {
-  color: var(--button-hover);
-} */
-
-.linkWrapper {
-  display: flex;
-  gap: 32px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.25;
-  color: var(--main);
 }

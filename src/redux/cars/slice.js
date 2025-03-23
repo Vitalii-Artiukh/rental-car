@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   totalPages: null,
   isLoading: false,
   error: null,
+  isOpenMenu: false,
 };
 
 const carSlice = createSlice({
@@ -37,6 +38,9 @@ const carSlice = createSlice({
     },
     setPage(state, action) {
       state.page = action.payload;
+    },
+    setOpenMenu(state) {
+      state.isOpenMenu = !state.isOpenMenu;
     },
   },
   extraReducers: (builder) =>
@@ -66,4 +70,4 @@ const carSlice = createSlice({
 });
 
 export const reducerCars = carSlice.reducer;
-export const { favoriteToggle, setPage } = carSlice.actions;
+export const { favoriteToggle, setPage, setOpenMenu } = carSlice.actions;

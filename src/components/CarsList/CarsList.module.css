@@ -17,3 +17,15 @@
   justify-items: center;
   padding-bottom: 32px;
 }
+
+@media screen and (min-width: 768px) {
+  .carListWrapper {
+    padding: 32px 36px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .carListWrapper {
+    padding: 160px 0 32px;
+  }
+}

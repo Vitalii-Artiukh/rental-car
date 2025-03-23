@@ -2,12 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   filter: null,
-  // {
-  //   brand: "",
-  //   rentalPrice: "",
-  //   minMileage: "",
-  //   maxMileage: "",
-  // },
+  isOpenFilter: false,
 };
 
 const filtersSlice = createSlice({
@@ -23,8 +18,11 @@ const filtersSlice = createSlice({
     resetFilters(state) {
       state.filter = INITIAL_STATE.filter;
     },
+    setOpenFilter(state) {
+      state.isOpenFilter = !state.isOpenFilter;
+    },
   },
 });
 
-export const { resetFilters, setFilter } = filtersSlice.actions;
+export const { resetFilters, setFilter, setOpenFilter } = filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;

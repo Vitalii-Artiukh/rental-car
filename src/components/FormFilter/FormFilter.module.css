@@ -6,6 +6,7 @@
   width: 1200px;
   /* width: 100%; */
   z-index: 999;
+  display: none;
 }
 
 .resetBtn {
@@ -55,4 +56,16 @@
 }
 .inputTo {
   border-radius: 0 12px 12px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .formStopped {
+    /* display: none; */
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .formStopped {
+    display: block;
+  }
 }

@@ -31,7 +31,8 @@
 @media screen and (min-width: 768px) {
   .homeWrapper {
     padding: 430px 0 60px 0;
-    max-width: 656px;
+    min-width: 641px;
+    /* max-width: auto; */
     h1 {
       font-size: 50px;
       line-height: 1.25;
@@ -48,7 +49,8 @@
 
 @media screen and (min-width: 1440px) {
   .homeWrapper {
-    padding: 504px 209px 55px 208px;
+    padding: 504px 0 55px;
+    min-width: 783px;
     h1 {
       font-weight: 700;
       font-size: 60px;
