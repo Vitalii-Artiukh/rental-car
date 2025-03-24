@@ -9,6 +9,7 @@
 }
 
 .headerContainer {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,34 +17,7 @@
   max-width: 320px;
   padding: 16px 20px;
   margin: 0 auto;
-  .linkWrapper {
-    display: flex;
-    align-items: center;
-    color: var(--main);
-    gap: 16px;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.2;
-    .link {
-      transition: color var(--primary-transition);
-    }
-    .link:hover,
-    .link:focus,
-    .active {
-      color: var(--button-hover);
-    }
-    .iconMenu {
-      fill: var(--main);
-      width: 16px;
-      height: 16px;
-      transition: fill, rotate var(--primary-transition);
-    }
-    .iconFilter {
-      stroke: var(--main);
-      width: 16px;
-      height: 16px;
-    }
-  }
+
   & button {
     background-color: inherit;
     border: none;
@@ -51,11 +25,66 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 0;
+
+    & .iconMenu {
+      fill: var(--main);
+      width: 20px;
+      height: 20px;
+      transition: fill var(--primary-transition),
+        rotate var(--primary-transition);
+    }
+
+    & .opened {
+      rotate: -90deg;
+    }
     &:hover {
       .iconMenu {
         fill: var(--button-hover);
-        rotate: -90deg;
       }
+      & .iconFilter {
+        stroke: var(--button-hover);
+      }
+    }
+  }
+
+  & > .filterBtn {
+    margin-right: 20px;
+    & > .iconFilter {
+      stroke: var(--main);
+      width: 20px;
+      height: 20px;
+      transition: stroke var(--primary-transition);
+    }
+  }
+
+  .linkWrapper {
+    position: absolute;
+    right: 20px;
+    top: 48px;
+    border-left: 1px solid var(--gray-light);
+    border-right: 1px solid var(--gray-light);
+    border-bottom: 1px solid var(--gray-light);
+    border-radius: 0 0 8px 8px;
+    background-color: var(--badges);
+    padding: 8px 12px;
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* align-items: center; */
+    color: var(--main);
+    gap: 16px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    .link {
+      transition: color var(--primary-transition);
+    }
+    .link:hover,
+    .link:focus,
+    .active {
+      color: var(--button-hover);
     }
   }
 }
@@ -82,17 +111,34 @@
     height: 68px;
     max-width: 768px;
     padding: 21px 92px;
-    .linkWrapper {
+
+    & > .filterBtn {
+      margin-right: 32px;
+      & > .iconFilter {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    & .linkWrapper {
+      position: relative;
+      right: 0;
+      top: 0;
+      flex-direction: row;
+      border: none;
+      background-color: inherit;
+      padding: 0;
+      align-items: center;
+      /* display: block; */
+      /* display: flex; */
       gap: 32px;
       font-weight: 500;
       font-size: 16px;
       line-height: 1.25;
-      .iconMenu {
-        width: 20px;
-        height: 20px;
-      }
-      .iconFilter {
-        stroke: var(--main);
+    }
+    & .menuBtn {
+      display: none;
+      & .iconMenu {
         width: 20px;
         height: 20px;
       }
@@ -104,5 +150,8 @@
   .headerContainer {
     max-width: 1440px;
     padding: 26px 120px;
+    & > .filterBtn {
+      display: none;
+    }
   }
 }
