@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   background-color: var(--badges);
-  z-index: 999;
+  z-index: 10;
 }
 
 .headerContainer {
@@ -17,6 +17,9 @@
   max-width: 320px;
   padding: 16px 20px;
   margin: 0 auto;
+  /* overflow: hidden; */
+  /* background-color: var(--badges); */
+  z-index: 10;
 
   & button {
     background-color: inherit;
@@ -26,6 +29,7 @@
     justify-content: center;
     cursor: pointer;
     padding: 0;
+    z-index: 1;
 
     & .iconMenu {
       fill: var(--main);
@@ -57,36 +61,44 @@
       transition: stroke var(--primary-transition);
     }
   }
+}
 
-  .linkWrapper {
-    position: absolute;
-    right: 20px;
-    top: 48px;
-    border-left: 1px solid var(--gray-light);
-    border-right: 1px solid var(--gray-light);
-    border-bottom: 1px solid var(--gray-light);
-    border-radius: 0 0 8px 8px;
-    background-color: var(--badges);
-    padding: 8px 12px;
-    /* display: none; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* align-items: center; */
-    color: var(--main);
-    gap: 16px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25;
-    .link {
-      transition: color var(--primary-transition);
-    }
-    .link:hover,
-    .link:focus,
-    .active {
-      color: var(--button-hover);
-    }
-  }
+.linkWrapper {
+  position: absolute;
+  right: 20px;
+  top: -73px;
+  border-left: 1px solid var(--gray-light);
+  border-right: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--gray-light);
+  border-radius: 0 0 8px 8px;
+  background-color: var(--badges);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--main);
+  gap: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  z-index: 0;
+  /* visibility: hidden; */
+  opacity: 0;
+  transition: var(--primary-transition);
+}
+.link {
+  transition: color var(--primary-transition);
+}
+.link:hover,
+.link:focus,
+.active {
+  color: var(--button-hover);
+}
+
+.openedMenu {
+  transform: translateY(120px);
+  /* visibility: visible; */
+  opacity: 1;
 }
 
 .logo {
@@ -135,6 +147,8 @@
       font-weight: 500;
       font-size: 16px;
       line-height: 1.25;
+      opacity: 1;
+      transition: none;
     }
     & .menuBtn {
       display: none;

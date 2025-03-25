@@ -24,10 +24,6 @@ const Header = () => {
 
   const isHome = matchPath("/", pathname);
 
-  const openedClasses = () => {
-    return clsx(css.iconMenu, openMenu && css.opened);
-  };
-
   // window width control
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -44,14 +40,19 @@ const Header = () => {
         !e.target.closest(".menuBtn") &&
         openMenu
       ) {
-        handleMenuClosed();
+        if (openMenu) {
+          setTimeout(() => {
+            dispatch(setOpenMenu());
+          }, 50);
+        }
+        // handleMenuClosed();
       }
     };
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [openMenu]);
+  }, [dispatch, openMenu]);
 
   const handleMenuOpen = () => {
     if (!openMenu) {
@@ -63,7 +64,7 @@ const Header = () => {
     if (openMenu) {
       setTimeout(() => {
         dispatch(setOpenMenu());
-      }, 250);
+      }, 50);
     }
   };
 
@@ -89,34 +90,28 @@ const Header = () => {
             <TbFilterPlus className={css.iconFilter} />
           </button>
         )}
-
-        {screenWidth > 767 || openMenu ? (
-          <div className={clsx(css.linkWrapper)}>
-            <NavLink
-              to="/"
-              className={activeClasses}
-              onClick={handleMenuClosed}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/catalog"
-              className={activeClasses}
-              onClick={handleMenuClosed}
-            >
-              Catalog
-            </NavLink>
-          </div>
-        ) : (
-          ""
-        )}
+        <div className={clsx(css.linkWrapper, openMenu && css.openedMenu)}>
+          <NavLink to="/" className={activeClasses} onClick={handleMenuClosed}>
+            Home
+          </NavLink>
+          <NavLink
+            to="/catalog"
+            className={activeClasses}
+            onClick={handleMenuClosed}
+          >
+            Catalog
+          </NavLink>
+        </div>
 
         <button
           type="button"
           onClick={openMenu ? handleMenuClosed : handleMenuOpen}
           className={css.menuBtn}
+          title="Open menu"
         >
-          <RiMenuFoldLine className={openedClasses()} />
+          <RiMenuFoldLine
+            className={clsx(css.iconMenu, openMenu && css.opened)}
+          />
         </button>
       </div>
     </header>
