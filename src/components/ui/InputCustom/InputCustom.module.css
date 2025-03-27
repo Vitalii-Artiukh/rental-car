@@ -1,12 +1,12 @@
 .label {
-  align-content: end;
-  height: 68px;
+  /* align-content: end; */
+  /* height: 68px; */
 }
 
-.labelText {
+/* .labelText {
   color: var(--gray);
-  margin-bottom: 8px;
-}
+  padding-bottom: 8px;
+} */
 
 ::placeholder {
   color: var(--main);

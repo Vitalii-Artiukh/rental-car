@@ -13,13 +13,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 48px;
+  height: 68px;
   max-width: 320px;
-  padding: 16px 20px;
+  padding: 21px 20px;
   margin: 0 auto;
-  /* overflow: hidden; */
-  /* background-color: var(--badges); */
   z-index: 10;
+
+  .logo {
+    margin-right: auto;
+  }
 
   & button {
     background-color: inherit;
@@ -32,15 +34,16 @@
     z-index: 1;
 
     & .iconMenu {
-      fill: var(--main);
-      width: 20px;
-      height: 20px;
+      fill: var(--gray);
+      width: 26px;
+      height: 26px;
       transition: fill var(--primary-transition),
         rotate var(--primary-transition);
     }
 
     & .opened {
       rotate: -90deg;
+      fill: var(--button-hover);
     }
     &:hover {
       .iconMenu {
@@ -55,9 +58,9 @@
   & > .filterBtn {
     margin-right: 20px;
     & > .iconFilter {
-      stroke: var(--main);
-      width: 20px;
-      height: 20px;
+      stroke: var(--gray);
+      width: 26px;
+      height: 26px;
       transition: stroke var(--primary-transition);
     }
   }
@@ -82,42 +85,29 @@
   font-size: 16px;
   line-height: 1.25;
   z-index: 0;
-  /* visibility: hidden; */
   opacity: 0;
   transition: var(--primary-transition);
-}
-.link {
-  transition: color var(--primary-transition);
-}
-.link:hover,
-.link:focus,
-.active {
-  color: var(--button-hover);
+  .link {
+    transition: color var(--primary-transition);
+    &:hover,
+    &:focus {
+      color: var(--button-hover);
+    }
+  }
+  .active {
+    color: var(--button-hover);
+  }
 }
 
 .openedMenu {
-  transform: translateY(120px);
-  /* visibility: visible; */
+  transform: translateY(140px);
   opacity: 1;
-}
-
-.logo {
-  /* width: 84px; */
-  /* height: 16px; */
-  margin-right: auto;
-}
-
-.iconLogo {
-  width: 84px;
 }
 
 @media screen and (min-width: 768px) {
   .header {
     width: 100%;
     left: 0;
-    .iconLogo {
-      width: 104px;
-    }
   }
   .headerContainer {
     height: 68px;
@@ -126,10 +116,6 @@
 
     & > .filterBtn {
       margin-right: 32px;
-      & > .iconFilter {
-        width: 20px;
-        height: 20px;
-      }
     }
 
     & .linkWrapper {
@@ -141,8 +127,6 @@
       background-color: inherit;
       padding: 0;
       align-items: center;
-      /* display: block; */
-      /* display: flex; */
       gap: 32px;
       font-weight: 500;
       font-size: 16px;

@@ -4,14 +4,23 @@ import * as carsSelect from "../../redux/cars/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../ui/CustomSelect/CustomSelect";
-import { resetFilters, setFilter } from "../../redux/filters/slice";
+import {
+  resetFilters,
+  setFilter,
+  setOpenFilter,
+} from "../../redux/filters/slice";
 import Button from "../ui/Button/Button";
 import css from "./FormFilter.module.css";
-import { selectorFilter } from "../../redux/filters/selectors";
+import {
+  selectorFilter,
+  selectorOpenFilter,
+} from "../../redux/filters/selectors";
 import { setPage } from "../../redux/cars/slice";
 import { useLocation } from "react-router-dom";
+import clsx from "clsx";
 
 const FormFilter = () => {
+  const openFilter = useSelector(selectorOpenFilter);
   const dispatch = useDispatch();
   const location = useLocation();
   const optionBrand = useSelector(carsSelect.selectorBrands);
@@ -36,6 +45,9 @@ const FormFilter = () => {
     if (localFilter) {
       dispatch(setFilter(localFilter));
       dispatch(fetchCars({ page, ...localFilter }));
+      if (openFilter) {
+        dispatch(setOpenFilter());
+      }
       return;
     } else {
       dispatch(resetFilters());
@@ -78,30 +90,35 @@ const FormFilter = () => {
   };
 
   return (
-    <form className={css.formStopped} onSubmit={handleSubmit}>
-      <div className={css.formWrapper}>
-        <CustomSelect
-          name={"brand"}
-          className={css.selectBrand}
-          placeholder={"Choose a brand"}
-          labelText={"Car brand"}
-          options={optionBrand}
-          onChange={(name, val) => handleChange(name, val)}
-          value={localFilter?.brand}
-        />
+    <form
+      className={clsx(css.formWrapper, openFilter && css.openedFilter)}
+      onSubmit={handleSubmit}
+    >
+      <CustomSelect
+        name={"brand"}
+        className={css.selectBrand}
+        placeholder={"Choose a brand"}
+        labelText={"Car brand"}
+        options={optionBrand}
+        onChange={(name, val) => handleChange(name, val)}
+        value={localFilter?.brand}
+      />
 
-        <CustomSelect
-          name={"rentalPrice"}
-          className={css.selectPrice}
-          placeholder={"Choose a price"}
-          labelText={"Price/ 1 hour"}
-          options={optionPrice}
-          onChange={(name, val) => handleChange(name, val)}
-          value={localFilter?.rentalPrice}
-        />
+      <CustomSelect
+        name={"rentalPrice"}
+        className={css.selectPrice}
+        placeholder={"Choose a price"}
+        labelText={"Price/ 1 hour"}
+        options={optionPrice}
+        onChange={(name, val) => handleChange(name, val)}
+        value={localFilter?.rentalPrice}
+      />
+      <div className={css.inputWrapper}>
         <InputCustomText
           name={"minMileage"}
           className={css.inputFrom}
+          classNameLabel={css.labelFrom}
+          classNameLabelText={css.labelText}
           labelText="Car mileage / km"
           placeholder="From"
           toFilter={
@@ -115,6 +132,7 @@ const FormFilter = () => {
         />
         <InputCustomText
           name={"maxMileage"}
+          classNameLabel={css.labelTo}
           className={css.inputTo}
           placeholder="To"
           toFilter={
@@ -124,21 +142,22 @@ const FormFilter = () => {
           }
           handleChange={(name, val) => handleChange(name, val)}
         />
-        {localFilter ? (
-          <Button className={css.btnSubmit} type="submit">
-            Search
-          </Button>
-        ) : (
-          <Button
-            type="button"
-            variant="transparent"
-            className={css.resetBtn}
-            onClick={reset}
-          >
-            Reset filters
-          </Button>
-        )}
       </div>
+
+      {localFilter ? (
+        <Button className={css.btnSubmit} type="submit">
+          Search
+        </Button>
+      ) : (
+        <Button
+          type="button"
+          variant="transparent"
+          className={css.resetBtn}
+          onClick={reset}
+        >
+          Reset filters
+        </Button>
+      )}
     </form>
   );
 };

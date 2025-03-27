@@ -5,18 +5,18 @@ import clsx from "clsx";
 import css from "./Header.module.css";
 import Icon from "../ui/Icon/Icon";
 import { useDispatch, useSelector } from "react-redux";
-// import { selectorOpenFilter } from "../../redux/filters/selectors";
+import { selectorOpenFilter } from "../../redux/filters/selectors";
 import { setOpenFilter } from "../../redux/filters/slice";
 import { selectorOpenMenu } from "../../redux/cars/selectors";
 import { setOpenMenu } from "../../redux/cars/slice";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const activeClasses = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
 const Header = () => {
-  // const openFilter = useSelector(selectorOpenFilter);
+  const openFilter = useSelector(selectorOpenFilter);
   const openMenu = useSelector(selectorOpenMenu);
   const dispatch = useDispatch();
   const refModal = useRef(null);
@@ -25,12 +25,12 @@ const Header = () => {
   const isHome = matchPath("/", pathname);
 
   // window width control
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  // useEffect(() => {
+  //   const handleResize = () => setScreenWidth(window.innerWidth);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -58,6 +58,9 @@ const Header = () => {
     if (!openMenu) {
       dispatch(setOpenMenu());
     }
+    if (openFilter) {
+      dispatch(setOpenFilter());
+    }
   };
 
   const handleMenuClosed = () => {
@@ -68,8 +71,6 @@ const Header = () => {
     }
   };
 
-  console.log(openMenu);
-
   const handleFilter = () => {
     dispatch(setOpenFilter());
   };
@@ -78,7 +79,7 @@ const Header = () => {
     <header className={clsx(css.header)}>
       <div className={clsx(css.headerContainer)} ref={refModal}>
         <Link to="/" className={clsx(css.logo)}>
-          <Icon name={"icon-logo"} className={clsx(css.iconLogo)} />
+          <Icon width={104} name={"icon-logo"} className={clsx(css.iconLogo)} />
         </Link>
         {!openMenu && !isHome && (
           <button

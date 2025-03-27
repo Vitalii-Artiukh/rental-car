@@ -8,6 +8,7 @@ import css from "./CarsList.module.css";
 // import { useLocation } from "react-router-dom";
 
 import Loader from "../ui/Loader/Loader";
+import FormFilter from "../FormFilter/FormFilter";
 
 const CarsList = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,8 @@ const CarsList = () => {
 
   return (
     <div>
+      <FormFilter />
+
       <ul className={css.carListWrapper}>
         {keyCars?.map((car) => (
           <li key={car.id}>

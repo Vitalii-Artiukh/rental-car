@@ -83,7 +83,7 @@ export const CustomSelect = ({
         {value ? (
           name === "rentalPrice" && value !== "" ? (
             <p>
-              <span>To $ </span>
+              <span>To $</span>
               <span className={css.fontWeight}>{value}</span>
             </p>
           ) : (

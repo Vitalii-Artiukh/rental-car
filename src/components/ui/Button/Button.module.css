@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  height: 44px;
-  padding: 12px 0;
+  border-radius: 8px;
+  /* height: 44px; */
+  padding: 8px 0;
   cursor: pointer;
   outline: none;
   transition: var(--primary-transition);

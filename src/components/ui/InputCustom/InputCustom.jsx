@@ -2,6 +2,8 @@ import css from "./InputCustom.module.css";
 
 export const InputCustomText = ({
   className,
+  classNameLabel,
+  classNameLabelText,
   name,
   placeholder,
   labelText,
@@ -9,8 +11,8 @@ export const InputCustomText = ({
   handleChange,
 }) => {
   return (
-    <label htmlFor={name} className={css.label}>
-      <p className={css.labelText}>{labelText}</p>
+    <label htmlFor={name} className={classNameLabel}>
+      <p className={classNameLabelText}>{labelText}</p>
       <input
         type="text"
         id={name}
