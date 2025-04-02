@@ -19,10 +19,14 @@ const filtersSlice = createSlice({
       state.filter = INITIAL_STATE.filter;
     },
     setOpenFilter(state) {
-      state.isOpenFilter = !state.isOpenFilter;
+      state.isOpenFilter = true;
+    },
+    setCloseFilter(state) {
+      state.isOpenFilter = false;
     },
   },
 });
 
-export const { resetFilters, setFilter, setOpenFilter } = filtersSlice.actions;
+export const { resetFilters, setFilter, setOpenFilter, setCloseFilter } =
+  filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;

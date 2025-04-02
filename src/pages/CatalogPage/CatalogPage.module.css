@@ -1,6 +1,7 @@
 .catalogWrapper {
   position: relative;
-  overflow: hidden;
+  /* min-height: 368px; */
+  /* overflow: hidden; */
   /* margin-top: 16px; */
   /* background-color: var(--white); */
 }

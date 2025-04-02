@@ -6,9 +6,9 @@ import css from "./Header.module.css";
 import Icon from "../ui/Icon/Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { selectorOpenFilter } from "../../redux/filters/selectors";
-import { setOpenFilter } from "../../redux/filters/slice";
+import { setCloseFilter, setOpenFilter } from "../../redux/filters/slice";
 import { selectorOpenMenu } from "../../redux/cars/selectors";
-import { setOpenMenu } from "../../redux/cars/slice";
+import { setCloseMenu, setOpenMenu } from "../../redux/cars/slice";
 import { useEffect, useRef } from "react";
 
 const activeClasses = ({ isActive }) => {
@@ -22,7 +22,7 @@ const Header = () => {
   const refModal = useRef(null);
   const { pathname } = useLocation();
 
-  const isHome = matchPath("/", pathname);
+  const isCatalog = matchPath("/catalog", pathname);
 
   // window width control
   // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -40,13 +40,26 @@ const Header = () => {
         !e.target.closest(".menuBtn") &&
         openMenu
       ) {
-        if (openMenu) {
-          setTimeout(() => {
-            dispatch(setOpenMenu());
-          }, 50);
-        }
-        // handleMenuClosed();
+        // if (openMenu) {
+        setTimeout(() => {
+          dispatch(setCloseMenu());
+        }, 50);
+        // }
       }
+
+      // if (
+      //   refModal.current &&
+      //   !refModal.current.contains(e.target) &&
+      //   !e.target.closest(".formWrapper") &&
+      //   // !e.target(".formWrapper") &&
+      //   openFilter
+      // ) {
+      //   // if (openMenu) {
+      //   // setTimeout(() => {
+      //   dispatch(setCloseFilter());
+      //   // }, 50);
+      //   // }
+      // }
     };
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -58,21 +71,25 @@ const Header = () => {
     if (!openMenu) {
       dispatch(setOpenMenu());
     }
-    if (openFilter) {
-      dispatch(setOpenFilter());
-    }
+
+    dispatch(setCloseFilter());
   };
 
   const handleMenuClosed = () => {
     if (openMenu) {
       setTimeout(() => {
-        dispatch(setOpenMenu());
+        dispatch(setCloseMenu());
       }, 50);
     }
   };
 
+  // open/close filter form button filter
   const handleFilter = () => {
-    dispatch(setOpenFilter());
+    if (!openFilter) {
+      dispatch(setOpenFilter());
+    } else {
+      dispatch(setCloseFilter());
+    }
   };
 
   return (
@@ -81,7 +98,7 @@ const Header = () => {
         <Link to="/" className={clsx(css.logo)}>
           <Icon width={104} name={"icon-logo"} className={clsx(css.iconLogo)} />
         </Link>
-        {!openMenu && !isHome && (
+        {!openMenu && isCatalog && (
           <button
             type="button"
             onClick={handleFilter}

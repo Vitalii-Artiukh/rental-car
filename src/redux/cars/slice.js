@@ -40,7 +40,10 @@ const carSlice = createSlice({
       state.page = action.payload;
     },
     setOpenMenu(state) {
-      state.isOpenMenu = !state.isOpenMenu;
+      state.isOpenMenu = true;
+    },
+    setCloseMenu(state) {
+      state.isOpenMenu = false;
     },
   },
   extraReducers: (builder) =>
@@ -70,4 +73,5 @@ const carSlice = createSlice({
 });
 
 export const reducerCars = carSlice.reducer;
-export const { favoriteToggle, setPage, setOpenMenu } = carSlice.actions;
+export const { favoriteToggle, setPage, setOpenMenu, setCloseMenu } =
+  carSlice.actions;

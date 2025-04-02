@@ -6,6 +6,7 @@ import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
 import { CustomSelect } from "../ui/CustomSelect/CustomSelect";
 import {
   resetFilters,
+  setCloseFilter,
   setFilter,
   setOpenFilter,
 } from "../../redux/filters/slice";
@@ -20,10 +21,11 @@ import { useLocation } from "react-router-dom";
 import clsx from "clsx";
 
 const FormFilter = () => {
-  const openFilter = useSelector(selectorOpenFilter);
   const dispatch = useDispatch();
   const location = useLocation();
+  const openFilter = useSelector(selectorOpenFilter);
   const optionBrand = useSelector(carsSelect.selectorBrands);
+  const cars = useSelector(carsSelect.selectorCars);
   const globalFilter = useSelector(selectorFilter);
   const page = useSelector(carsSelect.selectorPage);
 
@@ -38,6 +40,18 @@ const FormFilter = () => {
     }));
   };
 
+  const openedFilterForm = () => {
+    if (!openFilter) {
+      dispatch(setOpenFilter());
+    }
+  };
+
+  const closedFilterForm = () => {
+    if (openFilter) {
+      dispatch(setOpenFilter());
+    }
+  };
+
   // submit form
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,9 +59,11 @@ const FormFilter = () => {
     if (localFilter) {
       dispatch(setFilter(localFilter));
       dispatch(fetchCars({ page, ...localFilter }));
-      if (openFilter) {
-        dispatch(setOpenFilter());
+
+      if (cars.length !== 0) {
+        dispatch(setCloseFilter());
       }
+
       return;
     } else {
       dispatch(resetFilters());
@@ -75,6 +91,14 @@ const FormFilter = () => {
       dispatch(fetchCars({ page, ...globalFilter }));
     }
   }, [page, globalFilter, dispatch, location.pathname]);
+
+  useEffect(() => {
+    if (cars.length !== 0) {
+      dispatch(setCloseFilter());
+    } else {
+      dispatch(setOpenFilter());
+    }
+  }, [cars.length, dispatch]);
 
   // reset all filters
   const reset = () => {

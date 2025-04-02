@@ -9,9 +9,12 @@ import css from "./CarsList.module.css";
 
 import Loader from "../ui/Loader/Loader";
 import FormFilter from "../FormFilter/FormFilter";
+import { setOpenFilter } from "../../redux/filters/slice";
+import { selectorOpenFilter } from "../../redux/filters/selectors";
 
 const CarsList = () => {
   const dispatch = useDispatch();
+  const openFilter = useSelector(selectorOpenFilter);
   const cars = useSelector(carsSelect.selectorCars);
   const favorite = useSelector(carsSelect.selectorFavorite);
   const page = useSelector(carsSelect.selectorPage);
@@ -27,7 +30,17 @@ const CarsList = () => {
     dispatch(setPage(page + 1));
   };
 
+  // array with unique keys
+  const keyCars = Array.from(
+    new Map(cars.map((car) => [car.id, car])).values()
+  );
+
   useEffect(() => {
+    // if (keyCars.length === 0) {
+    //   if (!openFilter) {
+    //     dispatch(setOpenFilter());
+    //   }
+    // }
     if (page > 1) {
       const itemsHeight = 400;
       const gap = 48;
@@ -38,16 +51,11 @@ const CarsList = () => {
         });
       }, 350);
     }
-  }, [page]);
-
-  // array with unique keys
-  const keyCars = Array.from(
-    new Map(cars.map((car) => [car.id, car])).values()
-  );
+  }, [page, dispatch, openFilter, keyCars.length]);
 
   return (
     <div>
-      <FormFilter />
+      {/* <FormFilter /> */}
 
       <ul className={css.carListWrapper}>
         {keyCars?.map((car) => (

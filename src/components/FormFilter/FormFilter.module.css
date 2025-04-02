@@ -1,14 +1,15 @@
 .formWrapper {
   position: absolute;
-  left: -276px;
+  left: -342px;
   background-color: var(--gray-light);
-  padding: 36px 0;
+  padding: 36px 22px;
   /* width: 1200px; */
   display: flex;
   flex-direction: column;
   gap: 24px;
   /* align-items: end; */
   justify-content: start;
+
   /* height: 68px; */
   /* margin: 0 auto; */
 
@@ -19,7 +20,7 @@
 }
 
 .openedFilter {
-  transform: translateX(276px);
+  transform: translateX(320px);
   opacity: 1;
 }
 
@@ -88,7 +89,7 @@
 
 @media screen and (min-width: 768px) {
   .openedFilter {
-    transform: translateX(430px);
+    transform: translateX(474px);
     opacity: 1;
   }
 }
