@@ -1,7 +1,7 @@
 .formWrapper {
   position: absolute;
   left: -342px;
-  background-color: var(--gray-light);
+  background-color: var(--white);
   padding: 36px 22px;
   /* width: 1200px; */
   display: flex;
@@ -31,7 +31,7 @@
   /* margin-left: 16px; */
   /* width: 200px; */
   border: 1px solid var(--gray-light);
-  background-color: var(--inputs);
+  background-color: var(--white);
 }
 
 .selectBrand {
@@ -97,4 +97,21 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .formWrapper {
+    flex-direction: row;
+    align-items: flex-end;
+    position: fixed;
+    padding: 12px 72px 16px;
+    /* top: 0; */
+    left: calc(50% - 600px);
+    opacity: 1;
+    & > button {
+      margin: 0;
+    }
+  }
+  .openedFilter {
+    /* display: flex; */
+    transform: translateX(0);
+    /* opacity: 1; */
+  }
 }
