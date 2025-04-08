@@ -40,17 +40,17 @@ const FormFilter = () => {
     }));
   };
 
-  const openedFilterForm = () => {
-    if (!openFilter) {
-      dispatch(setOpenFilter());
-    }
-  };
+  // const openedFilterForm = () => {
+  //   if (!openFilter) {
+  //     dispatch(setOpenFilter());
+  //   }
+  // };
 
-  const closedFilterForm = () => {
-    if (openFilter) {
-      dispatch(setOpenFilter());
-    }
-  };
+  // const closedFilterForm = () => {
+  //   if (openFilter) {
+  //     dispatch(setOpenFilter());
+  //   }
+  // };
 
   // submit form
   const handleSubmit = (e) => {

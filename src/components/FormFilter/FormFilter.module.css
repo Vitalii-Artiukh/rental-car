@@ -15,11 +15,13 @@
 
   z-index: 1;
   opacity: 0;
+  /* display: none; */
   /* margin-top: 12px; */
   transition: var(--primary-transition);
 }
 
 .openedFilter {
+  /* display: flex; */
   transform: translateX(320px);
   opacity: 1;
 }
