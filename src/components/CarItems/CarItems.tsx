@@ -1,26 +1,26 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../ui/Button/Button";
-import Icon from "../ui/Icon/Icon";
+import { useNavigate } from 'react-router-dom';
+import Button from '../ui/Button/Button.tsx';
+import Icon from '../ui/Icon/Icon.tsx';
 
-import clsx from "clsx";
-import css from "./CarItems.module.css";
+import clsx from 'clsx';
+import css from './CarItems.module.css';
 
 const CarItems = ({ car, onToggle, isFavorite }) => {
   const navigate = useNavigate();
   const city = (city) => {
-    if (city?.toLowerCase().trim() === "kiev") {
-      return "Kyiv";
+    if (city?.toLowerCase().trim() === 'kiev') {
+      return 'Kyiv';
     }
     return city;
   };
-  const country = car?.address.split(",")[2];
-  const mileage = Number(car?.mileage).toLocaleString("uk-UA");
+  const country = car?.address.split(',')[2];
+  const mileage = Number(car?.mileage).toLocaleString('uk-UA');
 
   return (
     <div className={css.carItemsWrapper}>
       <button className={css.heartBtn} type="button" onClick={onToggle}>
         <Icon
-          name={isFavorite ? "icon-active" : "icon-default"}
+          name={isFavorite ? 'icon-active' : 'icon-default'}
           className={clsx(isFavorite ? css.iconFavorites : css.iconHeart)}
         />
       </button>
@@ -35,10 +35,10 @@ const CarItems = ({ car, onToggle, isFavorite }) => {
           {car?.brand} <span className={css.colorBlue}>{car?.model}, </span>
           {car?.year}
         </p>
-        <p style={{ marginLeft: "auto" }}>{`$${car?.rentalPrice}`}</p>
+        <p style={{ marginLeft: 'auto' }}>{`$${car?.rentalPrice}`}</p>
       </div>
       <div className={css.addressItem}>
-        <p className={css.city}>{city(car?.address.split(",")[1])}</p>
+        <p className={css.city}>{city(car?.address.split(',')[1])}</p>
         <p className={css.country}>{country}</p>
         <p className={css.company}>{car?.rentalCompany}</p>
       </div>

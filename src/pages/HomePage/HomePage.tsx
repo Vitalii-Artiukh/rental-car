@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../components/ui/Button/Button";
-import css from "./HomePage.module.css";
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/ui/Button/Button.tsx';
+import css from './HomePage.module.css';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const HomePage = () => {
       <p className={css.paragraph}>
         Reliable and budget-friendly rentals for any journey
       </p>
-      <Button type="button" onClick={() => navigate("/catalog")} variant="long">
+      <Button type="button" onClick={() => navigate('/catalog')} variant="long">
         View Catalog
       </Button>
     </div>

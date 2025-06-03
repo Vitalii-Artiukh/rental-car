@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import css from "./CustomSelect.module.css";
-import clsx from "clsx";
-import Icon from "../Icon/Icon";
+import { useEffect, useRef, useState } from 'react';
+import css from './CustomSelect.module.css';
+import clsx from 'clsx';
+import Icon from '../Icon/Icon.tsx';
 
 export const CustomSelect = ({
   name,
@@ -61,9 +61,9 @@ export const CustomSelect = ({
         setShowOptions(null);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [setShowOptions]);
 
@@ -81,7 +81,7 @@ export const CustomSelect = ({
         name={name}
       >
         {value ? (
-          name === "rentalPrice" && value !== "" ? (
+          name === 'rentalPrice' && value !== '' ? (
             <p>
               <span>To $</span>
               <span className={css.fontWeight}>{value}</span>
@@ -95,19 +95,19 @@ export const CustomSelect = ({
         <Icon
           width={16}
           height={16}
-          name={"icon-down"}
-          className={clsx(css.iconDown, showOptions ? css.iconUpper : "")}
+          name={'icon-down'}
+          className={clsx(css.iconDown, showOptions ? css.iconUpper : '')}
         />
         <div
           id={labelText}
-          className={clsx(css.dropdown, showOptions ? css.show : "")}
+          className={clsx(css.dropdown, showOptions ? css.show : '')}
         >
           {optionsValueLabel?.map((option, index) => (
             <div
               key={option.value}
               className={clsx(
                 css.dropdownItem,
-                index === focusedOptionIndex ? css.focused : ""
+                index === focusedOptionIndex ? css.focused : '',
               )}
               onClick={() => handleSelect(option.value)}
             >

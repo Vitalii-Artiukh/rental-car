@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Calendar from "../Calendar/Calendar";
-import clsx from "clsx";
-import toast from "react-hot-toast";
-import Button from "../ui/Button/Button";
-import css from "./FormOrder.module.css";
+import { useState } from 'react';
+import Calendar from '../Calendar/Calendar.js';
+import clsx from 'clsx';
+import toast from 'react-hot-toast';
+import Button from '../ui/Button/Button.tsx';
+import css from './FormOrder.module.css';
 
 const FormOrder = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: '',
+    email: '',
     date: null,
-    comment: "",
+    comment: '',
   });
 
   const handleChange = (e) => {
@@ -25,12 +25,12 @@ const FormOrder = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormData({
-      name: "",
-      email: "",
+      name: '',
+      email: '',
       date: null,
-      comment: "",
+      comment: '',
     });
-    toast.success("You successfully rented a car!");
+    toast.success('You successfully rented a car!');
   };
 
   return (

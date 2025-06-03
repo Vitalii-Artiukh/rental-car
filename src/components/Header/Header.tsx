@@ -1,15 +1,15 @@
-import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
-import { RiMenuFoldLine } from "react-icons/ri";
-import { TbFilterPlus } from "react-icons/tb";
-import clsx from "clsx";
-import css from "./Header.module.css";
-import Icon from "../ui/Icon/Icon";
-import { useDispatch, useSelector } from "react-redux";
-import { selectorOpenFilter } from "../../redux/filters/selectors";
-import { setCloseFilter, setOpenFilter } from "../../redux/filters/slice";
-import { selectorOpenMenu } from "../../redux/cars/selectors";
-import { setCloseMenu, setOpenMenu } from "../../redux/cars/slice";
-import { useEffect, useRef } from "react";
+import { Link, matchPath, NavLink, useLocation } from 'react-router-dom';
+import { RiMenuFoldLine } from 'react-icons/ri';
+import { TbFilterPlus } from 'react-icons/tb';
+import clsx from 'clsx';
+import css from './Header.module.css';
+import Icon from '../ui/Icon/Icon.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectorOpenFilter } from '../../redux/filters/selectors';
+import { setCloseFilter, setOpenFilter } from '../../redux/filters/slice';
+import { selectorOpenMenu } from '../../redux/cars/selectors';
+import { setCloseMenu, setOpenMenu } from '../../redux/cars/slice';
+import { useEffect, useRef } from 'react';
 
 const activeClasses = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
@@ -22,7 +22,7 @@ const Header = () => {
   const refModal = useRef(null);
   const { pathname } = useLocation();
 
-  const isCatalog = matchPath("/catalog", pathname);
+  const isCatalog = matchPath('/catalog', pathname);
 
   // window width control
   // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -37,7 +37,7 @@ const Header = () => {
       if (
         refModal.current &&
         !refModal.current.contains(e.target) &&
-        !e.target.closest(".menuBtn") &&
+        !e.target.closest('.menuBtn') &&
         openMenu
       ) {
         // if (openMenu) {
@@ -61,9 +61,9 @@ const Header = () => {
       //   // }
       // }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [dispatch, openMenu]);
 
@@ -96,7 +96,7 @@ const Header = () => {
     <header className={clsx(css.header)}>
       <div className={clsx(css.headerContainer)} ref={refModal}>
         <Link to="/" className={clsx(css.logo)}>
-          <Icon width={104} name={"icon-logo"} className={clsx(css.iconLogo)} />
+          <Icon width={104} name={'icon-logo'} className={clsx(css.iconLogo)} />
         </Link>
         {!openMenu && isCatalog && (
           <button

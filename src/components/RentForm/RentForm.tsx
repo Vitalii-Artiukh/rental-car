@@ -1,25 +1,24 @@
-// #3 Len
-
-import { useState } from "react";
-import toast from "react-hot-toast";
-import css from "./BookingForm.module.css";
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import css from './BookingForm.module.css';
+import Button from '../ui/Button/Button.tsx';
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+    name: '',
+    email: '',
+    date: '',
+    comment: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log("formdata: ", formData);
+    console.log('formdata: ', formData);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.success("Reservation sent successfully!");
-    setFormData({ name: "", email: "", date: "", comment: "" });
+    toast.success('Reservation sent successfully!');
+    setFormData({ name: '', email: '', date: '', comment: '' });
   };
   return (
     <form className={css.form} onSubmit={handleSubmit}>

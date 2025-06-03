@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAllCars, fetchByIdCar, fetchBrand } from "../../Api/axiosSet";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet.js';
 
 export const fetchCars = createAsyncThunk(
-  "cars/fetchCars",
+  'cars/fetchCars',
 
   async ({ ...filters }, thunkApi) => {
     try {
@@ -11,11 +11,11 @@ export const fetchCars = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchCarById = createAsyncThunk(
-  "cars/fetchById",
+  'cars/fetchById',
 
   async (cardId, thunkApi) => {
     try {
@@ -24,11 +24,11 @@ export const fetchCarById = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchCarsBrand = createAsyncThunk(
-  "filters/fetchFilters",
+  'filters/fetchFilters',
 
   async (_, thunkApi) => {
     try {
@@ -37,5 +37,5 @@ export const fetchCarsBrand = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );

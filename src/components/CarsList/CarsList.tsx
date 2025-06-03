@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import * as carsSelect from "../../redux/cars/selectors";
-import { setPage, favoriteToggle } from "../../redux/cars/slice";
-import CarItems from "../CarItems/CarItems";
-import Button from "../ui/Button/Button";
-import css from "./CarsList.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import * as carsSelect from '../../redux/cars/selectors';
+import { setPage, favoriteToggle } from '../../redux/cars/slice';
+import CarItems from '../CarItems/CarItems.js';
+import Button from '../ui/Button/Button.tsx';
+import css from './CarsList.module.css';
 // import { useLocation } from "react-router-dom";
 
-import Loader from "../ui/Loader/Loader";
-import FormFilter from "../FormFilter/FormFilter";
-import { setOpenFilter } from "../../redux/filters/slice";
-import { selectorOpenFilter } from "../../redux/filters/selectors";
+import Loader from '../ui/Loader/Loader.tsx';
+import FormFilter from '../FormFilter/FormFilter.tsx';
+import { setOpenFilter } from '../../redux/filters/slice';
+import { selectorOpenFilter } from '../../redux/filters/selectors';
 
 const CarsList = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const CarsList = () => {
 
   // array with unique keys
   const keyCars = Array.from(
-    new Map(cars.map((car) => [car.id, car])).values()
+    new Map(cars.map((car) => [car.id, car])).values(),
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const CarsList = () => {
       setTimeout(() => {
         window.scrollBy({
           top: itemsHeight + gap,
-          behavior: "smooth",
+          behavior: 'smooth',
         });
       }, 350);
     }

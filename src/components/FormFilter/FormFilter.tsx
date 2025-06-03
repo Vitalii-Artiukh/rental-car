@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { InputCustomText } from "../ui/InputCustom/InputCustom";
-import * as carsSelect from "../../redux/cars/selectors";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCars, fetchCarsBrand } from "../../redux/cars/operations";
-import { CustomSelect } from "../ui/CustomSelect/CustomSelect";
+import { useEffect, useState } from 'react';
+import { InputCustomText } from '../ui/InputCustom/InputCustom.tsx';
+import * as carsSelect from '../../redux/cars/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCars, fetchCarsBrand } from '../../redux/cars/operations';
+import { CustomSelect } from '../ui/CustomSelect/CustomSelect.tsx';
 import {
   resetFilters,
   setCloseFilter,
   setFilter,
   setOpenFilter,
-} from "../../redux/filters/slice";
-import Button from "../ui/Button/Button";
-import css from "./FormFilter.module.css";
+} from '../../redux/filters/slice';
+import Button from '../ui/Button/Button.tsx';
+import css from './FormFilter.module.css';
 import {
   selectorFilter,
   selectorOpenFilter,
-} from "../../redux/filters/selectors";
-import { setPage } from "../../redux/cars/slice";
-import { useLocation } from "react-router-dom";
-import clsx from "clsx";
+} from '../../redux/filters/selectors';
+import { setPage } from '../../redux/cars/slice';
+import { useLocation } from 'react-router-dom';
+import clsx from 'clsx';
 
 const FormFilter = () => {
   const dispatch = useDispatch();
@@ -34,9 +34,9 @@ const FormFilter = () => {
   const handleChange = (name, value) => {
     setLocalFilter((prev) => ({
       ...prev,
-      [name]: name.includes("Mileage")
-        ? Number(value.replace(/\D/g, "")) || ""
-        : value || "",
+      [name]: name.includes('Mileage')
+        ? Number(value.replace(/\D/g, '')) || ''
+        : value || '',
     }));
   };
 
@@ -87,7 +87,7 @@ const FormFilter = () => {
 
   // fetch cars
   useEffect(() => {
-    if (location.pathname === "/catalog") {
+    if (location.pathname === '/catalog') {
       dispatch(fetchCars({ page, ...globalFilter }));
     }
   }, [page, globalFilter, dispatch, location.pathname]);
@@ -108,7 +108,7 @@ const FormFilter = () => {
     setTimeout(() => {
       window.scrollTo({
         top: -window.innerHeight,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }, 250);
   };
@@ -119,27 +119,27 @@ const FormFilter = () => {
       onSubmit={handleSubmit}
     >
       <CustomSelect
-        name={"brand"}
+        name={'brand'}
         className={css.selectBrand}
-        placeholder={"Choose a brand"}
-        labelText={"Car brand"}
+        placeholder={'Choose a brand'}
+        labelText={'Car brand'}
         options={optionBrand}
         onChange={(name, val) => handleChange(name, val)}
         value={localFilter?.brand}
       />
 
       <CustomSelect
-        name={"rentalPrice"}
+        name={'rentalPrice'}
         className={css.selectPrice}
-        placeholder={"Choose a price"}
-        labelText={"Price/ 1 hour"}
+        placeholder={'Choose a price'}
+        labelText={'Price/ 1 hour'}
         options={optionPrice}
         onChange={(name, val) => handleChange(name, val)}
         value={localFilter?.rentalPrice}
       />
       <div className={css.inputWrapper}>
         <InputCustomText
-          name={"minMileage"}
+          name={'minMileage'}
           className={css.inputFrom}
           classNameLabel={css.labelFrom}
           classNameLabelText={css.labelText}
@@ -148,21 +148,21 @@ const FormFilter = () => {
           toFilter={
             localFilter?.minMileage
               ? `From ${Number(localFilter?.minMileage).toLocaleString(
-                  "en-US"
+                  'en-US',
                 )}`
-              : ""
+              : ''
           }
           handleChange={(name, val) => handleChange(name, val)}
         />
         <InputCustomText
-          name={"maxMileage"}
+          name={'maxMileage'}
           classNameLabel={css.labelTo}
           className={css.inputTo}
           placeholder="To"
           toFilter={
             localFilter?.maxMileage
-              ? `To ${Number(localFilter?.maxMileage).toLocaleString("en-US")}`
-              : ""
+              ? `To ${Number(localFilter?.maxMileage).toLocaleString('en-US')}`
+              : ''
           }
           handleChange={(name, val) => handleChange(name, val)}
         />
