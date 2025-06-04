@@ -1,6 +1,7 @@
-import css from "./InputCustom.module.css";
+import { FC } from 'react';
+import { InputCustomProps } from '../../../types.ts';
 
-export const InputCustomText = ({
+export const InputCustomText: FC<InputCustomProps> = ({
   className,
   classNameLabel,
   classNameLabelText,

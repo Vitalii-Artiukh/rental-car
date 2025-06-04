@@ -5,11 +5,7 @@ import { setPage, favoriteToggle } from '../../redux/cars/slice';
 import CarItems from '../CarItems/CarItems';
 import Button from '../ui/Button/Button';
 import css from './CarsList.module.css';
-// import { useLocation } from "react-router-dom";
-
 import Loader from '../ui/Loader/Loader';
-import FormFilter from '../FormFilter/FormFilter';
-import { setOpenFilter } from '../../redux/filters/slice';
 import { selectorOpenFilter } from '../../redux/filters/selectors';
 
 const CarsList = () => {
@@ -22,7 +18,7 @@ const CarsList = () => {
   const isLoading = useSelector(carsSelect.selectorIsLoading);
   const error = useSelector(carsSelect.selectorError);
 
-  const handleToggleFavorite = (id) => {
+  const handleToggleFavorite = (id: string) => {
     dispatch(favoriteToggle(id));
   };
 

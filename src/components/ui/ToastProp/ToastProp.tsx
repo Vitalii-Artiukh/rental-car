@@ -1,17 +1,18 @@
-import { Toaster } from "react-hot-toast";
+import { Toaster } from 'react-hot-toast';
+import { FC } from 'react';
 
-const ToastProp = () => {
+const ToastProp: FC = () => {
   return (
     <Toaster
-      position="center"
+      position="bottom-right"
       toastOptions={{
         success: {
           style: {
-            color: "var(--button-hover)",
-            backgroundColor: "var(--gray-light)",
-            fontWeight: "serif",
-            padding: "8px 30px",
-            borderRadius: "10px",
+            color: 'var(--button-hover)',
+            backgroundColor: 'var(--gray-light)',
+            fontWeight: 'serif',
+            padding: '8px 30px',
+            borderRadius: '10px',
             fontSize: 16,
             lineHeight: 1.2,
             width: 700,

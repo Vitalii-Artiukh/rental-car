@@ -4,13 +4,9 @@ import Icon from '../ui/Icon/Icon';
 import clsx from 'clsx';
 import css from './CarItems.module.css';
 import { CarItemsProps } from '../../types.ts';
-import { JSX } from 'react';
+import { FC } from 'react';
 
-const CarItems = ({
-  car,
-  onToggle,
-  isFavorite,
-}: CarItemsProps): JSX.Element => {
+const CarItems: FC<CarItemsProps> = ({ car, onToggle, isFavorite }) => {
   const navigate = useNavigate();
   const city = (city: string) => {
     if (city?.toLowerCase().trim() === 'kiev') {

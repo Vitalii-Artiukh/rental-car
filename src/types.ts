@@ -64,3 +64,14 @@ export interface ButtonProps {
   onClick?: () => void;
   children?: ReactNode;
 }
+
+export interface InputCustomProps {
+  className: string;
+  classNameLabel: string;
+  classNameLabelText: string;
+  name: string;
+  placeholder: string;
+  labelText: string;
+  toFilter: string;
+  handleChange: (name: string, value: string) => void;
+}

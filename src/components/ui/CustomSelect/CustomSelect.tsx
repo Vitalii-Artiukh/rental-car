@@ -1,4 +1,4 @@
-import { JSX, RefObject, useEffect, useRef, useState } from 'react';
+import { JSX, useEffect, useRef, useState } from 'react';
 import css from './CustomSelect.module.css';
 import clsx from 'clsx';
 import Icon from '../Icon/Icon';
@@ -23,10 +23,10 @@ export const CustomSelect = ({
   className,
 }: CustomSelectProps): JSX.Element => {
   // const [selectedOption, setSelectedOption] = useState(null);
-  const [showOptions, setShowOptions] = useState(null);
+  const [showOptions, setShowOptions] = useState<boolean | null>(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
 
-  const filterRef: RefObject<null | object> = useRef(null);
+  const filterRef = useRef<HTMLLabelElement>(null);
 
   console.log(filterRef.current);
 
@@ -67,8 +67,8 @@ export const CustomSelect = ({
 
   // closed dropdown
   useEffect(() => {
-    const handleClickOutside = (e: any): void => {
-      if (filterRef.current && !filterRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent): void => {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
         setShowOptions(null);
       }
     };
@@ -82,14 +82,14 @@ export const CustomSelect = ({
     <label
       ref={filterRef}
       className={clsx(css.customSelect, className)}
-      tabIndex="0"
+      tabIndex={0}
       // onKeyDown={handleKeyDown}
     >
       <p className={css.labelName}>{labelText}</p>
       <div
         className={css.input}
         onClick={() => setShowOptions(!showOptions)}
-        name={name}
+        data-name={name}
       >
         {value ? (
           name === 'rentalPrice' && value !== '' ? (
