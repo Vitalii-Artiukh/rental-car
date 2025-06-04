@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Calendar from '../Calendar/Calendar.js';
+import Calendar from '../Calendar/Calendar';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
-import Button from '../ui/Button/Button.tsx';
+import Button from '../ui/Button/Button';
 import css from './FormOrder.module.css';
 
 const FormOrder = () => {

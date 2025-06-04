@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import * as operations from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import * as operations from './operations';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -24,7 +24,7 @@ const INITIAL_STATE = {
 };
 
 const carSlice = createSlice({
-  name: "cars",
+  name: 'cars',
   initialState: INITIAL_STATE,
   reducers: {
     favoriteToggle(state, action) {

@@ -1,28 +1,32 @@
-import axios from "axios";
+import axios, { AxiosInstance } from 'axios';
+import { FitchFiltersType } from '../types.ts';
 
-const axiosInstance = axios.create({
-  baseURL: "https://car-rental-api.goit.global/",
+const axiosInstance: AxiosInstance = axios.create({
+  baseURL: 'https://car-rental-api.goit.global/',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
-export const fetchAllCars = async ({ filters }) => {
-  const response = await axiosInstance.get("/cars", {
+export const fetchAllCars = async ({
+  filters,
+}: FitchFiltersType): Promise<object> => {
+  const response = await axiosInstance.get('/cars', {
     params: { ...filters, limit: 12 },
   });
-  const data = response.data;
-  return data;
+  // const data = response.data;
+
+  return response.data;
 };
 
-export const fetchByIdCar = async (id) => {
+export const fetchByIdCar = async (id: string): Promise<object> => {
   const response = await axiosInstance.get(`/cars/${id}`);
-  const data = response.data;
-  return data;
+  // const data = response.data;
+  return response.data;
 };
 
-export const fetchBrand = async () => {
-  const response = await axiosInstance.get("/brands");
-  const data = response.data;
-  return data;
+export const fetchBrand = async (): Promise<object> => {
+  const response = await axiosInstance.get('/brands');
+  // const data = response.data;
+  return response.data;
 };

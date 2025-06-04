@@ -1,25 +1,36 @@
-import { useEffect, useRef, useState } from 'react';
+import { JSX, RefObject, useEffect, useRef, useState } from 'react';
 import css from './CustomSelect.module.css';
 import clsx from 'clsx';
-import Icon from '../Icon/Icon.tsx';
+import Icon from '../Icon/Icon';
+
+interface CustomSelectProps {
+  name: string;
+  options: string[];
+  placeholder: string;
+  labelText: string;
+  onChange: (name: string, option: string) => void;
+  value: string;
+  className: string;
+}
 
 export const CustomSelect = ({
   name,
-  options, // array values select
+  options,
   placeholder,
-  labelText, // label title text
-  onChange, // value select
-  //   formatValue, // value select + format
-  value, // value
+  labelText,
+  onChange,
+  value,
   className,
-}) => {
+}: CustomSelectProps): JSX.Element => {
   // const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
 
-  const filterRef = useRef(null);
+  const filterRef: RefObject<null | object> = useRef(null);
 
-  const handleSelect = (option) => {
+  console.log(filterRef.current);
+
+  const handleSelect = (option: string) => {
     onChange(name, option);
     // setSelectedOption(option);
     setShowOptions(null);
@@ -56,7 +67,7 @@ export const CustomSelect = ({
 
   // closed dropdown
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any): void => {
       if (filterRef.current && !filterRef.current.contains(e.target)) {
         setShowOptions(null);
       }

@@ -1,8 +1,17 @@
-import mySprite from "../../../assets/mainSvg.svg";
-import { TbCarGarage } from "react-icons/tb";
-import { GiHamburgerMenu } from "react-icons/gi";
+import mySprite from '../../../assets/mainSvg.svg';
+// import { TbCarGarage } from 'react-icons/tb';
+// import { GiHamburgerMenu } from 'react-icons/gi';
+import { IconProps } from '../../../types.ts';
+import { JSX } from 'react';
 
-const Icon = ({ name, fill, stroke, width = 16, height = 16, className }) => {
+const Icon = ({
+  name,
+  fill,
+  stroke,
+  width = 16,
+  height = 16,
+  className,
+}: IconProps): JSX.Element => {
   return (
     <svg
       width={width}
@@ -18,11 +27,11 @@ const Icon = ({ name, fill, stroke, width = 16, height = 16, className }) => {
 
 export default Icon;
 
-export const IconsReact = () => {
-  return (
-    <div>
-      <TbCarGarage />
-      <GiHamburgerMenu />
-    </div>
-  );
-};
+// export const IconsReact = () => {
+//   return (
+//     <div>
+//       <TbCarGarage />
+//       <GiHamburgerMenu />
+//     </div>
+//   );
+// };

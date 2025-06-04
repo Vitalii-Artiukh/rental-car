@@ -1,20 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, FC } from 'react';
 
-import Layout from '../ui/Layout.js';
-import ToastProp from '../ui/ToastProp/ToastProp.js';
-const DetailsPage = lazy(
-  () => import('../../pages/DetailsPage/DetailsPage.js'),
-);
+import Layout from '../ui/Layout';
+import ToastProp from '../ui/ToastProp/ToastProp';
+const DetailsPage = lazy(() => import('../../pages/DetailsPage/DetailsPage'));
 const NotFoundPage = lazy(
-  () => import('../../pages/NotFoundPage/NotFoundPage.js'),
+  () => import('../../pages/NotFoundPage/NotFoundPage'),
 );
-const CatalogPage = lazy(
-  () => import('../../pages/CatalogPage/CatalogPage.js'),
-);
-const HomePage = lazy(() => import('../../pages/HomePage/HomePage.tsx'));
+const CatalogPage = lazy(() => import('../../pages/CatalogPage/CatalogPage'));
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 
-function App() {
+const App: FC = () => {
   return (
     <>
       <ToastProp />
@@ -29,6 +25,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

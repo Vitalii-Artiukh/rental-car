@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { reducerCars } from "./cars/slice.js";
-import { filtersReducer } from "./filters/slice.js";
+import { configureStore } from '@reduxjs/toolkit';
+import { reducerCars } from './cars/slice';
+import { filtersReducer } from './filters/slice';
 import {
   persistStore,
   persistReducer,
@@ -10,13 +10,13 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: "favorite",
+  key: 'favorite',
   storage,
-  whitelist: ["favorite"],
+  whitelist: ['favorite'],
 };
 
 // const filterConfig = {

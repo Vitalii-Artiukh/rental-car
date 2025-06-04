@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/ui/Button/Button.tsx';
+import Button from '../../components/ui/Button/Button';
 import css from './HomePage.module.css';
 
 const HomePage = () => {

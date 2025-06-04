@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as carsSelect from '../../redux/cars/selectors';
 import { setPage, favoriteToggle } from '../../redux/cars/slice';
-import CarItems from '../CarItems/CarItems.js';
-import Button from '../ui/Button/Button.tsx';
+import CarItems from '../CarItems/CarItems';
+import Button from '../ui/Button/Button';
 import css from './CarsList.module.css';
 // import { useLocation } from "react-router-dom";
 
-import Loader from '../ui/Loader/Loader.tsx';
-import FormFilter from '../FormFilter/FormFilter.tsx';
+import Loader from '../ui/Loader/Loader';
+import FormFilter from '../FormFilter/FormFilter';
 import { setOpenFilter } from '../../redux/filters/slice';
 import { selectorOpenFilter } from '../../redux/filters/selectors';
 

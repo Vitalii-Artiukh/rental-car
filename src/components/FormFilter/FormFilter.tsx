@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { InputCustomText } from '../ui/InputCustom/InputCustom.tsx';
+import { InputCustomText } from '../ui/InputCustom/InputCustom';
 import * as carsSelect from '../../redux/cars/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, fetchCarsBrand } from '../../redux/cars/operations';
-import { CustomSelect } from '../ui/CustomSelect/CustomSelect.tsx';
+import { CustomSelect } from '../ui/CustomSelect/CustomSelect';
 import {
   resetFilters,
   setCloseFilter,
   setFilter,
   setOpenFilter,
 } from '../../redux/filters/slice';
-import Button from '../ui/Button/Button.tsx';
+import Button from '../ui/Button/Button';
 import css from './FormFilter.module.css';
 import {
   selectorFilter,

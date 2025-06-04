@@ -1,7 +1,14 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { CalendarProps } from '../../types.ts';
 
-const Calendar = ({ selectedDate, onChange, className, placeholder }) => {
+const Calendar = ({
+  selectedDate,
+  onChange,
+  className,
+  placeholder,
+}: CalendarProps) => {
+  console.log(onChange);
   return (
     <DatePicker
       selected={selectedDate}

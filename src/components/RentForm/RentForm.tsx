@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import css from './BookingForm.module.css';
-import Button from '../ui/Button/Button.tsx';
+import Button from '../ui/Button/Button';
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({

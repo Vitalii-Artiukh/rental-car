@@ -1,13 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../ui/Button/Button.tsx';
-import Icon from '../ui/Icon/Icon.tsx';
-
+import Button from '../ui/Button/Button';
+import Icon from '../ui/Icon/Icon';
 import clsx from 'clsx';
 import css from './CarItems.module.css';
+import { CarItemsProps } from '../../types.ts';
+import { JSX } from 'react';
 
-const CarItems = ({ car, onToggle, isFavorite }) => {
+const CarItems = ({
+  car,
+  onToggle,
+  isFavorite,
+}: CarItemsProps): JSX.Element => {
   const navigate = useNavigate();
-  const city = (city) => {
+  const city = (city: string) => {
     if (city?.toLowerCase().trim() === 'kiev') {
       return 'Kyiv';
     }

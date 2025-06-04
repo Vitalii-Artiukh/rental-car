@@ -3,7 +3,7 @@ import { RiMenuFoldLine } from 'react-icons/ri';
 import { TbFilterPlus } from 'react-icons/tb';
 import clsx from 'clsx';
 import css from './Header.module.css';
-import Icon from '../ui/Icon/Icon.tsx';
+import Icon from '../ui/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorOpenFilter } from '../../redux/filters/selectors';
 import { setCloseFilter, setOpenFilter } from '../../redux/filters/slice';

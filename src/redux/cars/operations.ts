@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet.js';
+import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet';
 
 export const fetchCars = createAsyncThunk(
   'cars/fetchCars',

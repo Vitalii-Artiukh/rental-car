@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import Photo from '../Photo/Photo.tsx';
+import Photo from '../Photo/Photo';
 import css from './Details.module.css';
 import * as carsSelect from '../../redux/cars/selectors';
 import { useEffect } from 'react';
-import Description from '../Description/Description.js';
-import FormOrder from '../FormOrder/FormOrder.tsx';
+import Description from '../Description/Description';
+import FormOrder from '../FormOrder/FormOrder';
 import { useParams } from 'react-router-dom';
 import { fetchCarById } from '../../redux/cars/operations';
 

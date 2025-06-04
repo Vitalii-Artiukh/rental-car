@@ -1,5 +1,5 @@
 // import { useParams } from "react-router-dom";
-import Details from '../../components/Details/Details.tsx';
+import Details from '../../components/Details/Details';
 // import css from "./DetailsPage.module.css";
 // import { useDispatch, useSelector } from "react-redux";
 // import {

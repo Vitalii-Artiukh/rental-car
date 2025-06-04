@@ -1,11 +1,13 @@
-import { matchPath, useLocation } from "react-router-dom";
-import css from "./Container.module.css";
-import clsx from "clsx";
+import { matchPath, useLocation } from 'react-router-dom';
+import css from './Container.module.css';
+import clsx from 'clsx';
+import { ChildrenProps } from '../../../types.ts';
+import { JSX } from 'react';
 
-const Container = ({ children }) => {
+const Container = ({ children }: ChildrenProps): JSX.Element => {
   const { pathname } = useLocation();
 
-  const isHome = matchPath("/", pathname);
+  const isHome = matchPath('/', pathname);
   return (
     <div className={clsx(isHome ? css.homePageContainer : css.container)}>
       {children}
