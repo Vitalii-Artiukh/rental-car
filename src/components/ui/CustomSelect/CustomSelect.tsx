@@ -28,8 +28,6 @@ export const CustomSelect = ({
 
   const filterRef = useRef<HTMLLabelElement>(null);
 
-  console.log(filterRef.current);
-
   const handleSelect = (option: string) => {
     onChange(name, option);
     // setSelectedOption(option);

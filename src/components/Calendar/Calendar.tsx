@@ -8,7 +8,6 @@ const Calendar = ({
   className,
   placeholder,
 }: CalendarProps) => {
-  console.log(onChange);
   return (
     <DatePicker
       selected={selectedDate}

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { FitchFiltersType } from '../types.ts';
+import { FetchFiltersType } from '../types.ts';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: 'https://car-rental-api.goit.global/',
@@ -10,7 +10,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 export const fetchAllCars = async ({
   filters,
-}: FitchFiltersType): Promise<object> => {
+}: FetchFiltersType): Promise<object> => {
   const response = await axiosInstance.get('/cars', {
     params: { ...filters, limit: 12 },
   });

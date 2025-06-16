@@ -1,15 +1,27 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet';
+import { Filters } from '../../types.ts';
+
+export interface Data {
+  cars?: Promise<object>[];
+  totalCars?: number;
+  totalPages?: number;
+  page?: number;
+}
 
 export const fetchCars = createAsyncThunk(
   'cars/fetchCars',
 
-  async ({ ...filters }, thunkApi) => {
+  async ({ ...filters }: Filters, thunkApi) => {
     try {
-      const data = await fetchAllCars({ filters });
+      const data: Data = await fetchAllCars({ filters });
+      console.log(data);
       return { cars: data.cars, totalPages: data.totalPages };
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return thunkApi.rejectWithValue(error.message);
+      }
+      return thunkApi.rejectWithValue(error);
     }
   },
 );
@@ -17,12 +29,14 @@ export const fetchCars = createAsyncThunk(
 export const fetchCarById = createAsyncThunk(
   'cars/fetchById',
 
-  async (cardId, thunkApi) => {
+  async (cardId: string, thunkApi) => {
     try {
-      const data = await fetchByIdCar(cardId);
-      return data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return await fetchByIdCar(cardId);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return thunkApi.rejectWithValue(error.message);
+      }
+      return thunkApi.rejectWithValue(error);
     }
   },
 );
@@ -32,10 +46,12 @@ export const fetchCarsBrand = createAsyncThunk(
 
   async (_, thunkApi) => {
     try {
-      const data = await fetchBrand();
-      return data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return await fetchBrand();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return thunkApi.rejectWithValue(error.message);
+      }
+      return thunkApi.rejectWithValue(error);
     }
   },
 );

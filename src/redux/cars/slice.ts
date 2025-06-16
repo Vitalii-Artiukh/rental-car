@@ -1,17 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as operations from './operations';
+import { CarsState } from '../../types.ts';
 
-const handlePending = (state) => {
+// interface FavoriteSlice {
+//   state: Pick<CarsState, 'favorite'>;
+// }
+
+const handlePending = (state: CarsState): void => {
   state.isLoading = true;
   state.error = null;
 };
 
-const handleReject = (state, action) => {
+const handleReject = (
+  state: CarsState,
+  action: PayloadAction<string[]>,
+): void => {
   state.isLoading = false;
   state.error = action.payload;
 };
 
-const INITIAL_STATE = {
+const INITIAL_STATE: CarsState = {
   items: [],
   brands: [],
   favorite: [],
@@ -27,9 +35,13 @@ const carSlice = createSlice({
   name: 'cars',
   initialState: INITIAL_STATE,
   reducers: {
-    favoriteToggle(state, action) {
+    favoriteToggle(state, action: PayloadAction<string>): void {
+      // const favorites = state.favorite;
+      if (!action.payload || action.payload === '') return;
       const carId = action.payload;
+      // if (!carId || carId === '') return;
       const index = state.favorite.indexOf(carId);
+      // const index = favorites.indexOf(carId);
       if (index !== -1) {
         state.favorite.splice(index, 1);
       } else {
@@ -72,6 +84,6 @@ const carSlice = createSlice({
       .addCase(operations.fetchCarsBrand.rejected, handleReject),
 });
 
-export const reducerCars = carSlice.reducer;
+export const carsReducer = carSlice.reducer;
 export const { favoriteToggle, setPage, setOpenMenu, setCloseMenu } =
   carSlice.actions;

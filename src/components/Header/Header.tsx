@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import css from './Header.module.css';
 import Icon from '../ui/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectorOpenFilter } from '../../redux/filters/selectors';
+import { selectOpenFilter } from '../../redux/filters/selectors';
 import { setCloseFilter, setOpenFilter } from '../../redux/filters/slice';
-import { selectorOpenMenu } from '../../redux/cars/selectors';
+import { selectOpenMenu } from '../../redux/cars/selectors';
 import { setCloseMenu, setOpenMenu } from '../../redux/cars/slice';
 import { useEffect, useRef } from 'react';
 
@@ -16,8 +16,8 @@ const activeClasses = ({ isActive }) => {
 };
 
 const Header = () => {
-  const openFilter = useSelector(selectorOpenFilter);
-  const openMenu = useSelector(selectorOpenMenu);
+  const openFilter = useSelector(selectOpenFilter);
+  const openMenu = useSelector(selectOpenMenu);
   const dispatch = useDispatch();
   const refModal = useRef(null);
   const { pathname } = useLocation();

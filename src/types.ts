@@ -1,14 +1,20 @@
 import { ReactNode } from 'react';
 
+export interface FiltersState {
+  filter: string;
+  error: string;
+  isOpenFilter: boolean;
+}
+
 export interface Filters {
-  page: number;
+  page?: number;
   brand?: string;
   price?: number;
   minMileage?: number;
   maxMileage?: number;
 }
 
-export interface FitchFiltersType {
+export interface FetchFiltersType {
   filters: Filters;
 }
 
@@ -47,10 +53,22 @@ export interface CarProps {
   address: string;
 }
 
+export interface CarsState {
+  items?: CarProps[];
+  brands?: string[];
+  favorite?: string[] | undefined;
+  selectedCar?: CarProps | null;
+  page?: number;
+  totalPages?: number | null;
+  isLoading?: boolean;
+  error?: string[] | null;
+  isOpenMenu?: boolean;
+}
+
 export interface CarItemsProps {
   car: CarProps;
   onToggle: () => void;
-  isFavorite: boolean;
+  isFavorite: boolean | undefined;
 }
 
 export interface ChildrenProps {

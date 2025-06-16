@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducerCars } from './cars/slice';
+import { carsReducer } from './cars/slice';
 import { filtersReducer } from './filters/slice';
 import {
   persistStore,
@@ -19,13 +19,7 @@ const persistConfig = {
   whitelist: ['favorite'],
 };
 
-// const filterConfig = {
-//   key: "filter",
-//   storage,
-//   whitelist: ["filter"],
-// };
-
-const carPersistor = persistReducer(persistConfig, reducerCars);
+const carPersistor = persistReducer(persistConfig, carsReducer);
 // const filterPersistor = persistReducer(filterConfig, filtersReducer);
 
 export const store = configureStore({
@@ -41,5 +35,8 @@ export const store = configureStore({
       },
     }),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
