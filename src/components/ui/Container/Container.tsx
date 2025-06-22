@@ -4,8 +4,12 @@ import clsx from 'clsx';
 import { ChildrenProps } from '../../../types.ts';
 import { JSX } from 'react';
 
+interface LocationType {
+  pathname: string;
+}
+
 const Container = ({ children }: ChildrenProps): JSX.Element => {
-  const { pathname } = useLocation();
+  const { pathname }: LocationType = useLocation();
 
   const isHome = matchPath('/', pathname);
   return (

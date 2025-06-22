@@ -1,10 +1,35 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  ActionReducerMapBuilder,
+  createSlice,
+  PayloadAction,
+  SerializedError,
+  AsyncThunk,
+} from '@reduxjs/toolkit';
 import * as operations from './operations';
-import { CarsState } from '../../types.ts';
+import { CarProps, CarsState, Filters } from '../../types.ts';
 
-// interface FavoriteSlice {
-//   state: Pick<CarsState, 'favorite'>;
-// }
+type PendingAction = ReturnType<AsyncThunk<any, any, any>['pending']>;
+type RejectedAction = ReturnType<AsyncThunk<any, any, any>['rejected']>;
+
+interface FetchCarsAction {
+  cars: CarProps[];
+  totalPages: number;
+}
+
+interface FulfilledAction {
+  fetchCars: PayloadAction<
+    { cars: CarProps[]; totalPages: number },
+    string,
+    { arg: Filters }
+  >;
+  fetchCarById: PayloadAction<CarProps>;
+  fetchCarsBrand: PayloadAction<string[]>;
+}
+
+interface FetchCarsResponse {
+  cars: CarProps[];
+  totalPages: number;
+}
 
 const handlePending = (state: CarsState): void => {
   state.isLoading = true;
@@ -13,13 +38,13 @@ const handlePending = (state: CarsState): void => {
 
 const handleReject = (
   state: CarsState,
-  action: PayloadAction<string[]>,
+  action: PayloadAction<unknown, string, unknown, SerializedError>,
 ): void => {
   state.isLoading = false;
-  state.error = action.payload;
+  state.error = action.error.message || 'Unknown error';
 };
 
-const INITIAL_STATE: CarsState = {
+const initialState: CarsState = {
   items: [],
   brands: [],
   favorite: [],
@@ -33,13 +58,14 @@ const INITIAL_STATE: CarsState = {
 
 const carSlice = createSlice({
   name: 'cars',
-  initialState: INITIAL_STATE,
+  initialState,
   reducers: {
     favoriteToggle(state, action: PayloadAction<string>): void {
       // const favorites = state.favorite;
       if (!action.payload || action.payload === '') return;
       const carId = action.payload;
       // if (!carId || carId === '') return;
+      if (!state.favorite) return;
       const index = state.favorite.indexOf(carId);
       // const index = favorites.indexOf(carId);
       if (index !== -1) {
@@ -48,7 +74,7 @@ const carSlice = createSlice({
         state.favorite.push(carId);
       }
     },
-    setPage(state, action) {
+    setPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
     },
     setOpenMenu(state) {
@@ -58,29 +84,45 @@ const carSlice = createSlice({
       state.isOpenMenu = false;
     },
   },
-  extraReducers: (builder) =>
+  extraReducers: (
+    builder,
+    // : ActionReducerMapBuilder<CarsState>
+  ) =>
     builder
+      //   fetchCars
       .addCase(operations.fetchCars.pending, handlePending)
-      .addCase(operations.fetchCars.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.totalPages = action.payload.totalPages;
-        if (action.meta.arg.page === 1) {
-          state.items = [];
-        }
-        state.items = [...state.items, ...action.payload.cars];
-      })
+      .addCase(
+        operations.fetchCars.fulfilled,
+        (state, action: PayloadAction<FetchCarsResponse>) => {
+          state.isLoading = false;
+          state.totalPages = action.payload.totalPages;
+          if (action.meta.arg.page === 1) {
+            state.items = [];
+          }
+          state.items = [
+            ...(state.items || []),
+            ...(action.payload.cars || []),
+          ];
+        },
+      )
       .addCase(operations.fetchCars.rejected, handleReject)
       .addCase(operations.fetchCarById.pending, handlePending)
-      .addCase(operations.fetchCarById.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.selectedCar = action.payload;
-      })
+      .addCase(
+        operations.fetchCarById.fulfilled,
+        (state, action: PayloadAction<CarProps>) => {
+          state.isLoading = false;
+          state.selectedCar = action.payload;
+        },
+      )
       .addCase(operations.fetchCarById.rejected, handleReject)
       .addCase(operations.fetchCarsBrand.pending, handlePending)
-      .addCase(operations.fetchCarsBrand.fulfilled, (state, action) => {
-        state.brands = action.payload;
-        state.error = null;
-      })
+      .addCase(
+        operations.fetchCarsBrand.fulfilled,
+        (state: CarsState, action: PayloadAction<string[]>) => {
+          state.brands = action.payload;
+          state.error = null;
+        },
+      )
       .addCase(operations.fetchCarsBrand.rejected, handleReject),
 });
 

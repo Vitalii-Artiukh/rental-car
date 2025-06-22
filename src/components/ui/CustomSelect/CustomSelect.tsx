@@ -1,4 +1,4 @@
-import { JSX, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import css from './CustomSelect.module.css';
 import clsx from 'clsx';
 import Icon from '../Icon/Icon';
@@ -13,7 +13,7 @@ interface CustomSelectProps {
   className: string;
 }
 
-export const CustomSelect = ({
+export const CustomSelect: FC<CustomSelectProps> = ({
   name,
   options,
   placeholder,
@@ -21,7 +21,7 @@ export const CustomSelect = ({
   onChange,
   value,
   className,
-}: CustomSelectProps): JSX.Element => {
+}) => {
   // const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState<boolean | null>(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);

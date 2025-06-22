@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import css from './BookingForm.module.css';
 import Button from '../ui/Button/Button';
@@ -10,12 +10,14 @@ const BookingForm = () => {
     date: '',
     comment: '',
   });
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     console.log('formdata: ', formData);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast.success('Reservation sent successfully!');
     setFormData({ name: '', email: '', date: '', comment: '' });
@@ -55,7 +57,6 @@ const BookingForm = () => {
         />
         <textarea
           className={`${css.input} ${css.textaria}`}
-          type="textarea"
           name="comment"
           value={formData.comment}
           onChange={handleChange}

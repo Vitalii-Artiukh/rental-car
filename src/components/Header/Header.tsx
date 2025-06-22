@@ -10,16 +10,21 @@ import { setCloseFilter, setOpenFilter } from '../../redux/filters/slice';
 import { selectOpenMenu } from '../../redux/cars/selectors';
 import { setCloseMenu, setOpenMenu } from '../../redux/cars/slice';
 import { useEffect, useRef } from 'react';
+// import { ClickOutsideHandler } from 'react-datepicker/dist/click_outside_wrapper';
 
-const activeClasses = ({ isActive }) => {
-  return clsx(css.link, isActive && css.active);
+interface NavLinkProps {
+  isActive: boolean;
+}
+
+const activeClasses = ({ isActive }: NavLinkProps): string => {
+  return clsx(css.link as string, isActive && (css.active as string));
 };
 
 const Header = () => {
   const openFilter = useSelector(selectOpenFilter);
   const openMenu = useSelector(selectOpenMenu);
   const dispatch = useDispatch();
-  const refModal = useRef(null);
+  const refModal = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
   const isCatalog = matchPath('/catalog', pathname);
@@ -33,11 +38,11 @@ const Header = () => {
   // }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (
         refModal.current &&
-        !refModal.current.contains(e.target) &&
-        !e.target.closest('.menuBtn') &&
+        !refModal.current.contains(e.target as Node) &&
+        !(e.target as HTMLElement).closest('.menuBtn') &&
         openMenu
       ) {
         // if (openMenu) {

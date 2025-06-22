@@ -1,37 +1,15 @@
 import { ReactNode } from 'react';
 
-export interface FiltersState {
-  filter: string;
-  error: string;
-  isOpenFilter: boolean;
-}
-
-export interface Filters {
+export interface CarsState {
+  items?: CarProps[];
+  brands?: string[];
+  favorite?: string[];
+  selectedCar?: CarProps | null;
   page?: number;
-  brand?: string;
-  price?: number;
-  minMileage?: number;
-  maxMileage?: number;
-}
-
-export interface FetchFiltersType {
-  filters: Filters;
-}
-
-export interface CalendarProps {
-  selectedDate: Date;
-  onChange: (date: Date | null) => void;
-  className?: string;
-  placeholder?: string;
-}
-
-export interface IconProps {
-  name: string;
-  fill?: string;
-  stroke?: string;
-  width?: number;
-  height?: number;
-  className?: string;
+  totalPages?: number | null;
+  isLoading?: boolean;
+  error?: string | null;
+  isOpenMenu?: boolean;
 }
 
 export interface CarProps {
@@ -53,22 +31,46 @@ export interface CarProps {
   address: string;
 }
 
-export interface CarsState {
-  items?: CarProps[];
-  brands?: string[];
-  favorite?: string[] | undefined;
-  selectedCar?: CarProps | null;
-  page?: number;
-  totalPages?: number | null;
-  isLoading?: boolean;
-  error?: string[] | null;
-  isOpenMenu?: boolean;
-}
-
 export interface CarItemsProps {
   car: CarProps;
   onToggle: () => void;
   isFavorite: boolean | undefined;
+}
+
+// filter interfaces
+
+export interface FiltersState {
+  filter?: string[] | null;
+  // error?: string;
+  isOpenFilter?: boolean;
+}
+
+export interface Filters {
+  page?: number;
+  brand?: string;
+  price?: number;
+  minMileage?: number;
+  maxMileage?: number;
+}
+
+export interface FetchFiltersType {
+  filters: Filters;
+}
+
+export interface CalendarProps {
+  selectedDate?: Date;
+  onChange?: (date: Date | null) => void;
+  className?: string;
+  placeholder?: string;
+}
+
+export interface IconProps {
+  name: string;
+  fill?: string;
+  stroke?: string;
+  width?: number;
+  height?: number;
+  className?: string;
 }
 
 export interface ChildrenProps {

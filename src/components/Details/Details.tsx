@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Photo from '../Photo/Photo';
 import css from './Details.module.css';
 import * as carsSelect from '../../redux/cars/selectors';
@@ -8,11 +8,15 @@ import FormOrder from '../FormOrder/FormOrder';
 import { useParams } from 'react-router-dom';
 import { fetchCarById } from '../../redux/cars/operations';
 import { CarProps } from '../../types.ts';
-import { useAppDispatch } from '../ui/hooks.ts';
+// import { useAppDispatch } from '../ui/hooks.ts';
+
+type Params = {
+  id?: string;
+};
 
 const Details = () => {
-  const { id } = useParams();
-  const dispatch = useAppDispatch();
+  const { id }: Params = useParams();
+  const dispatch = useDispatch();
   const car = useSelector(carsSelect.selectSelectedCar);
   // const IsLoading = useSelector(carsSelect.selectIsLoading);
 

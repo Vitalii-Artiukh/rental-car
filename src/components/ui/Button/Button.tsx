@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import css from './Button.module.css';
 import { ButtonProps } from '../../../types.ts';
+import { JSX } from 'react';
 
 const Button = ({
   variant = 'default',
@@ -8,7 +9,7 @@ const Button = ({
   type = 'button',
   onClick,
   children,
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element => {
   const styles = clsx(
     css.button,
     variant === 'default' && clsx(css.default),

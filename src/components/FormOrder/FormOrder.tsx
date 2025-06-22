@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import Calendar from '../Calendar/Calendar';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
 import Button from '../ui/Button/Button';
 import css from './FormOrder.module.css';
 
-const FormOrder = () => {
-  const [formData, setFormData] = useState({
+interface FormDataState {
+  name: string;
+  email: string;
+  date: Date | null;
+  comment: string;
+}
+
+const FormOrder: FC = () => {
+  const [formData, setFormData] = useState<FormDataState>({
     name: '',
     email: '',
     date: null,
     comment: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ): void => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name as keyof FormDataState]: value }));
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date | null) => {
+    console.log(date);
     setFormData((prev) => ({ ...prev, date }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormData({
       name: '',
@@ -47,7 +57,7 @@ const FormOrder = () => {
             id="name"
             className={css.inputText}
             placeholder="Name*"
-            value={formData?.name}
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -60,7 +70,7 @@ const FormOrder = () => {
             id="email"
             className={css.inputText}
             placeholder="Email*"
-            value={formData?.email}
+            value={formData.email}
             onChange={handleChange}
             required
           />
@@ -68,20 +78,22 @@ const FormOrder = () => {
 
         <Calendar
           className={css.inputText}
-          selectedDate={formData?.date}
+          selectedDate={formData.date || undefined}
           onChange={handleDateChange}
           placeholder="Booking date"
         />
 
         <label htmlFor="comment">
           <textarea
-            type="textarea"
+            maxLength={500}
+            rows={4}
+            // type="textarea"
             name="comment"
             id="comment"
             className={clsx(css.comment, css.inputText)}
             placeholder="Comment"
             onChange={handleChange}
-            value={formData?.comment}
+            value={formData.comment}
           />
         </label>
 

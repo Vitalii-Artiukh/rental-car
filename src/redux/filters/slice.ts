@@ -1,22 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FiltersState } from '../../types.ts';
 
-const INITIAL_STATE = {
+const initialState: FiltersState = {
   filter: null,
   isOpenFilter: false,
 };
 
 const filtersSlice = createSlice({
-  name: "filters",
-  initialState: INITIAL_STATE,
+  name: 'filters',
+  initialState,
   reducers: {
-    setFilter(state, action) {
+    setFilter(state, action: PayloadAction<string[]>) {
       state.filter = {
         ...state.filter,
         ...action.payload,
       };
     },
     resetFilters(state) {
-      state.filter = INITIAL_STATE.filter;
+      state.filter = initialState.filter;
     },
     setOpenFilter(state) {
       state.isOpenFilter = true;

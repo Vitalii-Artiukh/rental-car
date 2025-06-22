@@ -5,6 +5,6 @@ interface RootFiltersState {
 }
 
 export const selectFilter = (state: RootFiltersState) => state.filters.filter;
-export const selectError = (state: RootFiltersState) => state.filters.error;
+// export const selectError = (state: RootFiltersState) => state.filters.error;
 export const selectOpenFilter = (state: RootFiltersState) =>
   state.filters.isOpenFilter;

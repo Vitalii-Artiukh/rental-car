@@ -1,14 +1,14 @@
-import { ProgressBar } from 'react-loader-spinner';
+import { ProgressBar, ProgressBarProps } from 'react-loader-spinner';
 import { FC } from 'react';
 
-const Loader: FC = () => {
+const Loader: FC<ProgressBarProps> = () => {
   return (
     <div>
       <ProgressBar
         visible={true}
         height="80"
         width="80"
-        // color="#4fa94d"
+        barColor="#4fa94d"
         ariaLabel="progress-bar-loading"
         wrapperStyle={{}}
         wrapperClass="loader"

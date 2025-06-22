@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { InputCustomText } from '../ui/InputCustom/InputCustom';
 import * as carsSelect from '../../redux/cars/selectors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCars, fetchCarsBrand } from '../../redux/cars/operations';
 import { CustomSelect } from '../ui/CustomSelect/CustomSelect';
 import * as filtersSlice from '../../redux/filters/slice';
@@ -11,30 +11,35 @@ import { selectFilter, selectOpenFilter } from '../../redux/filters/selectors';
 import { setPage } from '../../redux/cars/slice';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-import { useAppDispatch } from '../ui/hooks.ts';
+// import { useAppDispatch } from '../ui/hooks.ts';
+import { Filters } from '../../types.ts';
 
 export interface LocalFilter {
-  brand?: string;
-  rentalPrice?: number;
-  minMileage?: number;
-  maxMileage?: number;
+  brand?: string | undefined;
+  rentalPrice?: string | undefined;
+  minMileage?: number | undefined;
+  maxMileage?: number | undefined;
   page?: number;
 }
 
+interface GlobalFilter {
+  globalFilter: Filters;
+}
+
 const FormFilter = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
   const openFilter = useSelector(selectOpenFilter);
   const optionBrand = useSelector(carsSelect.selectBrands);
 
   const cars = useSelector(carsSelect.selectCars);
-  const globalFilter: {} = useSelector(selectFilter);
+  const globalFilter = useSelector(selectFilter);
   const page = useSelector(carsSelect.selectPage);
   // const optionBrand = typeof optionBrandState === 'string';
 
   const [localFilter, setLocalFilter] = useState<LocalFilter | null>(null);
 
-  const handleChange = (name: string, value: string) => {
+  const handleChange = (name: keyof LocalFilter, value: string) => {
     setLocalFilter((prev) => ({
       ...prev,
       [name]: name.includes('Mileage')
@@ -56,7 +61,7 @@ const FormFilter = () => {
   // };
 
   // submit form
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(setPage(1));
     if (!localFilter) {
