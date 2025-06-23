@@ -3,7 +3,7 @@ import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet';
 import { CarProps, Filters } from '../../types.ts';
 
 export interface Data {
-  cars?: Promise<object>[];
+  cars?: Promise<object>[] | CarProps[];
   totalCars?: number;
   totalPages?: number;
   page?: number;
@@ -23,7 +23,7 @@ export const fetchCars = createAsyncThunk(
   async ({ ...filters }: Filters, thunkApi) => {
     try {
       const data: Data = await fetchAllCars({ filters });
-      return { cars: data.cars, totalPages: data.totalPages };
+      return { items: data.cars, totalPages: data.totalPages };
     } catch (error: unknown) {
       if (error instanceof Error) {
         return thunkApi.rejectWithValue(error.message);

@@ -6,14 +6,14 @@ import {
   AsyncThunk,
 } from '@reduxjs/toolkit';
 import * as operations from './operations';
-import { CarProps, CarsState, Filters } from '../../types.ts';
+import { CarProps, Filters } from '../../types.ts';
+import CarsList from '../../components/CarsList/CarsList.tsx';
 
 type PendingAction = ReturnType<AsyncThunk<any, any, any>['pending']>;
 type RejectedAction = ReturnType<AsyncThunk<any, any, any>['rejected']>;
 
 interface FetchCarsAction {
   cars: CarProps[];
-  totalPages: number;
 }
 
 interface FulfilledAction {
@@ -31,6 +31,11 @@ interface FetchCarsResponse {
   totalPages: number;
 }
 
+interface FetchCarsAction {
+  cars: CarProps[];
+  type: string;
+}
+
 const handlePending = (state: CarsState): void => {
   state.isLoading = true;
   state.error = null;
@@ -44,7 +49,19 @@ const handleReject = (
   state.error = action.error.message || 'Unknown error';
 };
 
-const initialState: CarsState = {
+export interface CarsState {
+  items?: CarProps[];
+  brands?: string[];
+  favorite?: string[];
+  selectedCar?: CarProps | null;
+  page?: number;
+  totalPages?: number | null | undefined;
+  isLoading?: boolean;
+  error?: string | null;
+  isOpenMenu?: boolean;
+}
+
+const initialState = {
   items: [],
   brands: [],
   favorite: [],
@@ -54,7 +71,7 @@ const initialState: CarsState = {
   isLoading: false,
   error: null,
   isOpenMenu: false,
-};
+} satisfies CarsState as CarsState;
 
 const carSlice = createSlice({
   name: 'cars',
@@ -93,15 +110,17 @@ const carSlice = createSlice({
       .addCase(operations.fetchCars.pending, handlePending)
       .addCase(
         operations.fetchCars.fulfilled,
-        (state, action: PayloadAction<FetchCarsResponse>) => {
+        (state, action: PayloadAction<CarsState>) => {
           state.isLoading = false;
+          state.error = null;
+          // const newCars: CarProps = action.payload.cars || [];
           state.totalPages = action.payload.totalPages;
           if (action.meta.arg.page === 1) {
             state.items = [];
           }
           state.items = [
             ...(state.items || []),
-            ...(action.payload.cars || []),
+            ...(action.payload.items || []),
           ];
         },
       )
@@ -118,8 +137,8 @@ const carSlice = createSlice({
       .addCase(operations.fetchCarsBrand.pending, handlePending)
       .addCase(
         operations.fetchCarsBrand.fulfilled,
-        (state: CarsState, action: PayloadAction<string[]>) => {
-          state.brands = action.payload;
+        (state, action: PayloadAction<CarsState>) => {
+          state.brands = action.payload as string[];
           state.error = null;
         },
       )

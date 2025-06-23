@@ -1,17 +1,5 @@
 import { ReactNode } from 'react';
 
-export interface CarsState {
-  items?: CarProps[];
-  brands?: string[];
-  favorite?: string[];
-  selectedCar?: CarProps | null;
-  page?: number;
-  totalPages?: number | null;
-  isLoading?: boolean;
-  error?: string | null;
-  isOpenMenu?: boolean;
-}
-
 export interface CarProps {
   id: string;
   year: number;

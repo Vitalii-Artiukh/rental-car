@@ -28,12 +28,14 @@ const FormOrder: FC = () => {
   };
 
   const handleDateChange = (date: Date | null) => {
-    console.log(date);
     setFormData((prev) => ({ ...prev, date }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    alert(
+      `name: ${formData.name}, email: ${formData.email}, data: ${formData.date?.toLocaleDateString()}, coment: ${formData.comment}`,
+    );
     setFormData({
       name: '',
       email: '',
@@ -87,7 +89,6 @@ const FormOrder: FC = () => {
           <textarea
             maxLength={500}
             rows={4}
-            // type="textarea"
             name="comment"
             id="comment"
             className={clsx(css.comment, css.inputText)}
