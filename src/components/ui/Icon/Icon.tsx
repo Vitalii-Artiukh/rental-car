@@ -1,8 +1,14 @@
 import mySprite from '../../../assets/mainSvg.svg';
-// import { TbCarGarage } from 'react-icons/tb';
-// import { GiHamburgerMenu } from 'react-icons/gi';
-import { IconProps } from '../../../types.ts';
 import { FC } from 'react';
+
+export interface IconProps {
+  name: string;
+  fill?: string;
+  stroke?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+}
 
 const Icon: FC<IconProps> = ({
   name,
@@ -14,6 +20,7 @@ const Icon: FC<IconProps> = ({
 }) => {
   return (
     <svg
+      name={name}
       width={width}
       height={height}
       fill={fill}
@@ -26,12 +33,3 @@ const Icon: FC<IconProps> = ({
 };
 
 export default Icon;
-
-// export const IconsReact = () => {
-//   return (
-//     <div>
-//       <TbCarGarage />
-//       <GiHamburgerMenu />
-//     </div>
-//   );
-// };

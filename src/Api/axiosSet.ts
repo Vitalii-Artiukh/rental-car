@@ -1,5 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
-import { FetchFiltersType } from '../types.ts';
+import { CarProps, FetchFiltersType } from '../types.ts';
+
+export interface APIResponse {
+  cars: CarProps[];
+  totalPages: number;
+  totalCars: number;
+  page: number;
+}
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: 'https://car-rental-api.goit.global/',
@@ -10,7 +17,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 export const fetchAllCars = async ({
   filters,
-}: FetchFiltersType): Promise<object> => {
+}: FetchFiltersType): Promise<APIResponse> => {
   const response = await axiosInstance.get('/cars', {
     params: { ...filters, limit: 12 },
   });

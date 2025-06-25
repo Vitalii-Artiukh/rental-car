@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Photo from '../Photo/Photo';
 import css from './Details.module.css';
 import * as carsSelect from '../../redux/cars/selectors';
@@ -7,16 +7,11 @@ import Description from '../Description/Description';
 import FormOrder from '../FormOrder/FormOrder';
 import { useParams } from 'react-router-dom';
 import { fetchCarById } from '../../redux/cars/operations';
-import { CarProps } from '../../types.ts';
-// import { useAppDispatch } from '../ui/hooks.ts';
-
-type Params = {
-  id?: string;
-};
+import { useAppDispatch } from '../ui/hooks.ts';
 
 const Details = () => {
-  const { id }: Params = useParams();
-  const dispatch = useDispatch();
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
   const car = useSelector(carsSelect.selectSelectedCar);
   // const IsLoading = useSelector(carsSelect.selectIsLoading);
 
@@ -25,6 +20,10 @@ const Details = () => {
     dispatch(fetchCarById(id));
   }, [dispatch, id]);
 
+  if (!car) {
+    return null; // або компонент завантаження
+  }
+
   return (
     <div className={css.detailWrapper}>
       <div className={css.photoFormWrapper}>
@@ -32,7 +31,7 @@ const Details = () => {
         <FormOrder />
       </div>
       <div className={css.descriptionWrapper}>
-        <Description car={car as CarProps} />
+        <Description car={car} />
       </div>
     </div>
   );

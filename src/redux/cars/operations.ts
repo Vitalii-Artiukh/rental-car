@@ -1,4 +1,4 @@
-import { createAsyncThunk, GetThunkAPI } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAllCars, fetchByIdCar, fetchBrand } from '../../Api/axiosSet';
 import { CarProps, Filters } from '../../types.ts';
 
@@ -9,20 +9,23 @@ export interface Data {
   page?: number;
 }
 
-interface FetchCarsParams {
-  page: number;
-  brand: string;
-  rentalPrice: number;
-  minMileage: number;
-  maxMileage: number;
+interface FetchCarsResponse {
+  cars: CarProps[];
+  totalPages: number;
 }
 
-export const fetchCars = createAsyncThunk(
+export const fetchCars = createAsyncThunk<
+  { items: CarProps[]; totalPages: number },
+  Filters
+  // {
+  //   rejectValue: string | unknown;
+  // }
+>(
   'cars/fetchCars',
 
-  async ({ ...filters }: Filters, thunkApi) => {
+  async (filters: Filters, thunkApi) => {
     try {
-      const data: Data = await fetchAllCars({ filters });
+      const data = await fetchAllCars({ filters });
       return { items: data.cars, totalPages: data.totalPages };
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -33,19 +36,23 @@ export const fetchCars = createAsyncThunk(
   },
 );
 
-export const fetchCarById = createAsyncThunk<CarProps, string>(
-  'cars/fetchById',
-  async (cardId: string, thunkApi): Promise<CarProps> => {
-    try {
-      return await fetchByIdCar(cardId);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return thunkApi.rejectWithValue(error.message);
-      }
-      return thunkApi.rejectWithValue(error);
+export const fetchCarById = createAsyncThunk<
+  CarProps, // Тип успішного результату
+  string, // Тип параметра (id)
+  {
+    // Конфігурація
+    rejectValue: string | unknown; // Тип значення помилки
+  }
+>('cars/fetchById', async (id: string, thunkApi) => {
+  try {
+    return await fetchByIdCar(id);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return thunkApi.rejectWithValue(error.message);
     }
-  },
-);
+    return thunkApi.rejectWithValue(error);
+  }
+});
 
 export const fetchCarsBrand = createAsyncThunk(
   'filters/fetchFilters',

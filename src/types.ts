@@ -1,22 +1,22 @@
 import { ReactNode } from 'react';
 
 export interface CarProps {
-  id: string;
-  year: number;
-  brand: string;
-  model: string;
-  type: string;
-  accessories: string[];
-  description: string;
-  engineSize: string;
-  fuelConsumption: string;
-  functionalities: string[];
-  img: string;
-  mileage: number;
-  rentalCompany: string;
-  rentalConditions: string[];
-  rentalPrice: number;
-  address: string;
+  id?: string;
+  year?: number;
+  brand?: string;
+  model?: string;
+  type?: string;
+  accessories?: string[];
+  description?: string;
+  engineSize?: string;
+  fuelConsumption?: string;
+  functionalities?: string[];
+  img?: string;
+  mileage?: number;
+  rentalCompany?: string;
+  rentalConditions?: string[];
+  rentalPrice?: number;
+  address?: string;
 }
 
 export interface CarItemsProps {
@@ -50,15 +50,6 @@ export interface CalendarProps {
   onChange?: (date: Date | null) => void;
   className?: string;
   placeholder?: string;
-}
-
-export interface IconProps {
-  name: string;
-  fill?: string;
-  stroke?: string;
-  width?: number;
-  height?: number;
-  className?: string;
 }
 
 export interface ChildrenProps {

@@ -11,26 +11,27 @@ import { selectFilter, selectOpenFilter } from '../../redux/filters/selectors';
 import { setPage } from '../../redux/cars/slice';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-// import { useAppDispatch } from '../ui/hooks.ts';
+import { useAppDispatch } from '../ui/hooks.ts';
 import { Filters } from '../../types.ts';
+import { AppDispatch } from '../../redux/store.ts';
 
 export interface LocalFilter {
-  brand?: string | undefined;
-  rentalPrice?: string | undefined;
-  minMileage?: number | undefined;
-  maxMileage?: number | undefined;
+  brand?: string;
+  rentalPrice?: string;
+  minMileage?: number;
+  maxMileage?: number;
   page?: number;
 }
 
-interface GlobalFilter {
-  globalFilter: Filters;
-}
+// interface GlobalFilter {
+//   globalFilter: Filters;
+// }
 
 const FormFilter = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const openFilter = useSelector(selectOpenFilter);
-  const optionBrand = useSelector(carsSelect.selectBrands);
+  const optionBrand = useSelector(carsSelect.selectBrands) ?? [];
 
   const cars = useSelector(carsSelect.selectCars);
   const globalFilter = useSelector(selectFilter);
@@ -68,7 +69,7 @@ const FormFilter = () => {
       dispatch(filtersSlice.resetFilters());
       return;
     }
-    dispatch(filtersSlice.setFilter(localFilter));
+    dispatch(filtersSlice.setFilter(localFilter as string[]));
     dispatch(fetchCars({ page, ...localFilter }));
     //   if (localFilter) {
     //     //   dispatch(filtersSlice.setFilter(localFilter));
@@ -89,13 +90,12 @@ const FormFilter = () => {
 
   // generate price
   const optionPrice = useMemo(() => {
-    let number = [];
+    const number: string[] = [];
     for (let i = 20; i <= 130; i += 10) {
-      number.push(i);
+      number.push(i.toString());
     }
     return number;
   }, []);
-  // const optionPrice = generate();
 
   // fetch cars
   useEffect(() => {
@@ -136,8 +136,8 @@ const FormFilter = () => {
         placeholder={'Choose a brand'}
         labelText={'Car brand'}
         options={optionBrand}
-        onChange={(name, val) => handleChange(name, val)}
-        value={localFilter?.brand}
+        onChange={(name, val) => handleChange(name as keyof LocalFilter, val)}
+        value={localFilter?.brand ?? ''}
       />
 
       <CustomSelect
@@ -146,8 +146,8 @@ const FormFilter = () => {
         placeholder={'Choose a price'}
         labelText={'Price/ 1 hour'}
         options={optionPrice}
-        onChange={(name, val) => handleChange(name, val)}
-        value={localFilter?.rentalPrice}
+        onChange={(name, val) => handleChange(name as keyof LocalFilter, val)}
+        value={localFilter?.rentalPrice ?? ''}
       />
       <div className={css.inputWrapper}>
         <InputCustomText
@@ -164,19 +164,25 @@ const FormFilter = () => {
                 )}`
               : ''
           }
-          handleChange={(name, val) => handleChange(name, val)}
+          handleChange={(name, val) =>
+            handleChange(name as keyof LocalFilter, val)
+          }
         />
         <InputCustomText
-          name={'maxMileage'}
+          name="maxMileage"
           classNameLabel={css.labelTo}
           className={css.inputTo}
+          classNameLabelText={css.labelText}
+          labelText="Car mileage / km"
           placeholder="To"
           toFilter={
             localFilter?.maxMileage
               ? `To ${Number(localFilter?.maxMileage).toLocaleString('en-US')}`
               : ''
           }
-          handleChange={(name, val) => handleChange(name, val)}
+          handleChange={(name, val) =>
+            handleChange(name as keyof LocalFilter, val)
+          }
         />
       </div>
 

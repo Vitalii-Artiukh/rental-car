@@ -26,13 +26,8 @@ interface FulfilledAction {
   fetchCarsBrand: PayloadAction<string[]>;
 }
 
-interface FetchCarsResponse {
-  cars: CarProps[];
-  totalPages: number;
-}
-
-interface FetchCarsAction {
-  cars: CarProps[];
+interface FetchCarsFulfilledAction {
+  payload: CarsState;
   type: string;
 }
 
@@ -110,7 +105,18 @@ const carSlice = createSlice({
       .addCase(operations.fetchCars.pending, handlePending)
       .addCase(
         operations.fetchCars.fulfilled,
-        (state, action: PayloadAction<CarsState>) => {
+        (
+          state,
+          action: PayloadAction<
+            { items: CarProps[]; totalPages: number },
+            string,
+            {
+              arg: Filters;
+              requestId: string;
+              requestStatus: 'fulfilled';
+            }
+          >,
+        ) => {
           state.isLoading = false;
           state.error = null;
           // const newCars: CarProps = action.payload.cars || [];
