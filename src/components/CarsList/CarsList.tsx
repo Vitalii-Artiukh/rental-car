@@ -20,6 +20,7 @@ const CarsList = () => {
   const error = useSelector(carsSelect.selectError);
 
   const handleToggleFavorite = (id: string) => {
+    if (!id) return;
     dispatch(favoriteToggle(id));
   };
 
@@ -68,9 +69,10 @@ const CarsList = () => {
           <li key={car.id}>
             <CarItems
               car={car}
-              onToggle={() => handleToggleFavorite(car.id)}
-              isFavorite={// Array.isArray(favorite) &&
-              favorite?.includes(car.id)}
+              onToggle={() => handleToggleFavorite(car.id!)}
+              isFavorite={
+                Array.isArray(favorite) && favorite?.includes(car.id!)
+              }
             />
           </li>
         ))}

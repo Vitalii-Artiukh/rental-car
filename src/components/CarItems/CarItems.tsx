@@ -14,7 +14,10 @@ const CarItems: FC<CarItemsProps> = ({ car, onToggle, isFavorite }) => {
     }
     return city;
   };
-  const country = car?.address.split(',')[2];
+
+  const address = car?.address ?? 'no-address';
+
+  const country = address.split(',')[2];
   const mileage = Number(car?.mileage).toLocaleString('uk-UA');
 
   return (
@@ -39,7 +42,7 @@ const CarItems: FC<CarItemsProps> = ({ car, onToggle, isFavorite }) => {
         <p style={{ marginLeft: 'auto' }}>{`$${car?.rentalPrice}`}</p>
       </div>
       <div className={css.addressItem}>
-        <p className={css.city}>{city(car?.address.split(',')[1])}</p>
+        <p className={css.city}>{city(address.split(',')[1])}</p>
         <p className={css.country}>{country}</p>
         <p className={css.company}>{car?.rentalCompany}</p>
       </div>

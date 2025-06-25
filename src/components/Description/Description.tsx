@@ -13,11 +13,15 @@ const Description = ({ car }: Car) => {
     }
     return city;
   };
-  const index = car?.img.split('/').length - 1;
-  const idImg = car?.img.split('/')[index].split('-')[0];
+
+  const img = car?.img ?? 'default-img-url';
+  const address = car?.address ?? 'no-address';
+
+  const index = img.split('/').length - 1;
+  const idImg = img.split('/')[index].split('-')[0];
   const mileage = Number(car?.mileage).toLocaleString('uk-UA');
-  const myCity = city(car?.address.split(',')[1]);
-  const country = car?.address.split(',')[2];
+  const myCity = city(address.split(',')[1]);
+  const country = address.split(',')[2];
   const rentalConditions = car?.rentalConditions;
   const functionalities = car?.functionalities;
   const fuelConsumption = car?.fuelConsumption;
