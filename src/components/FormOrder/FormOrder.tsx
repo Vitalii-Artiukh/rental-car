@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, JSX, useState } from 'react';
 import Calendar from '../Calendar/Calendar';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
@@ -12,7 +12,7 @@ interface FormDataState {
   comment: string;
 }
 
-const FormOrder: FC = () => {
+const FormOrder = (): JSX.Element => {
   const [formData, setFormData] = useState<FormDataState>({
     name: '',
     email: '',
@@ -34,7 +34,7 @@ const FormOrder: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert(
-      `name: ${formData.name}, email: ${formData.email}, data: ${formData.date?.toLocaleDateString()}, coment: ${formData.comment}`,
+      `name: ${formData.name}, email: ${formData.email}, data: ${formData.date?.toLocaleDateString()}, comment: ${formData.comment}`,
     );
     setFormData({
       name: '',

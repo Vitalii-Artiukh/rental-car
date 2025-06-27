@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo } from 'react';
+import { JSX, useEffect, useMemo } from 'react';
 import * as carsSelect from '../../redux/cars/selectors';
 import { setPage, favoriteToggle } from '../../redux/cars/slice';
 import CarItems from '../CarItems/CarItems';
@@ -9,7 +9,7 @@ import Loader from '../ui/Loader/Loader';
 import { selectOpenFilter } from '../../redux/filters/selectors';
 import { CarProps } from '../../types.ts';
 
-const CarsList = () => {
+const CarsList = (): JSX.Element => {
   const dispatch = useDispatch();
   const openFilter = useSelector(selectOpenFilter);
   const cars = useSelector(carsSelect.selectCars);

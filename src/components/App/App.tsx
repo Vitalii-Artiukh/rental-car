@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy, FC } from 'react';
-
 import Layout from '../ui/Layout';
 import ToastProp from '../ui/ToastProp/ToastProp';
 const DetailsPage = lazy(() => import('../../pages/DetailsPage/DetailsPage'));

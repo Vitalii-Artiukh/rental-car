@@ -25,8 +25,6 @@ export interface CarItemsProps {
   isFavorite: boolean | undefined;
 }
 
-// filter interfaces
-
 export interface FiltersState {
   filter?: string[] | null;
   // error?: string;

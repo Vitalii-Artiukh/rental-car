@@ -1,12 +1,13 @@
 import Icon from '../ui/Icon/Icon';
 import css from './Description.module.css';
 import { CarProps } from '../../types.ts';
+import { FC } from 'react';
 
 export interface Car {
   car: CarProps;
 }
 
-const Description = ({ car }: Car) => {
+const Description: FC<Car> = ({ car }) => {
   const city = (city: string): string => {
     if (city?.toLowerCase().trim() === 'kiev') {
       return 'Kyiv';

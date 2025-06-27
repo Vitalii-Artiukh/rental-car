@@ -4,13 +4,13 @@ import { TbFilterPlus } from 'react-icons/tb';
 import clsx from 'clsx';
 import css from './Header.module.css';
 import Icon from '../ui/Icon/Icon';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectOpenFilter } from '../../redux/filters/selectors';
 import { setCloseFilter, setOpenFilter } from '../../redux/filters/slice';
 import { selectOpenMenu } from '../../redux/cars/selectors';
 import { setCloseMenu, setOpenMenu } from '../../redux/cars/slice';
-import { useEffect, useRef } from 'react';
-// import { ClickOutsideHandler } from 'react-datepicker/dist/click_outside_wrapper';
+import { JSX, useEffect, useRef } from 'react';
+import { useAppDispatch } from '../ui/hooks.ts';
 
 interface NavLinkProps {
   isActive: boolean;
@@ -20,10 +20,10 @@ const activeClasses = ({ isActive }: NavLinkProps): string => {
   return clsx(css.link as string, isActive && (css.active as string));
 };
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const openFilter = useSelector(selectOpenFilter);
   const openMenu = useSelector(selectOpenMenu);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const refModal = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 

@@ -1,13 +1,14 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarProps } from '../../types.ts';
+import { JSX } from 'react';
 
 const Calendar = ({
   selectedDate,
   onChange,
   className,
   placeholder,
-}: CalendarProps) => {
+}: CalendarProps): JSX.Element => {
   return (
     <DatePicker
       selected={selectedDate}

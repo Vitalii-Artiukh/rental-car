@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button/Button';
 import css from './HomePage.module.css';
+import { JSX } from 'react';
 
-const HomePage = () => {
-  const navigate = useNavigate();
+const HomePage = (): JSX.Element => {
+  const navigate: NavigateFunction = useNavigate();
 
   return (
     <div className={css.homeWrapper}>

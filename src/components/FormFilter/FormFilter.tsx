@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, JSX, useEffect, useMemo, useState } from 'react';
 import { InputCustomText } from '../ui/InputCustom/InputCustom';
 import * as carsSelect from '../../redux/cars/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchCars, fetchCarsBrand } from '../../redux/cars/operations';
 import { CustomSelect } from '../ui/CustomSelect/CustomSelect';
 import * as filtersSlice from '../../redux/filters/slice';
@@ -12,8 +12,6 @@ import { setPage } from '../../redux/cars/slice';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useAppDispatch } from '../ui/hooks.ts';
-import { Filters } from '../../types.ts';
-import { AppDispatch } from '../../redux/store.ts';
 
 export interface LocalFilter {
   brand?: string;
@@ -23,11 +21,7 @@ export interface LocalFilter {
   page?: number;
 }
 
-// interface GlobalFilter {
-//   globalFilter: Filters;
-// }
-
-const FormFilter = () => {
+const FormFilter = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const openFilter = useSelector(selectOpenFilter);
